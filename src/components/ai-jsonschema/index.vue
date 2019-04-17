@@ -29,6 +29,9 @@ export default {
     formData(nval) {
       this.initData()
       this.refresh = +new Date()
+    },
+    schema(nval) {
+      this.initData()
     }
   },
   components: {
