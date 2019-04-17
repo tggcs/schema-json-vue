@@ -3,8 +3,6 @@
     <TitleField :title="schema.title"/>
     <DescriptionField :title="schema.description"/>
     <div v-for="(item, index) in itemlist" :key="index" class="array-item">
-      <!-- <TitleField :title="schema.items.title"/>
-      <DescriptionField :title="schema.description"/> -->
       <SchemaField
         :key="refresh"
         :schema="item.schema" 

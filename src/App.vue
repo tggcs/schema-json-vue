@@ -20,11 +20,12 @@
 
 <script>
 import AiJsonSchema from './components/ai-jsonschema/index.vue'
-import schema from './data/schema.json'
-import formData from './data/formData.json'
-import testjson from './data/lyk/test2.json'
-import sampleFull from './data/sampleFull.json'
 import readme from './components/readme.vue'
+import formData from './data/formData.json'
+
+import testjson from './data/lyk/test.json'
+import testjson2 from './data/lyk/test2.json'
+import classdata from './data/sample/class.json'
 
 export default {
   name: 'app',
@@ -33,25 +34,17 @@ export default {
     readme
   },
   created() {
-    this.jsoninput = JSON.stringify(sampleFull, null ,2)
+    this.jsoninput = JSON.stringify(testjson2, null ,2)
     this.formDataTxt = this.formData
   },
   data() {
     return {
       schema: {},
-      // schema: sample,
-      // schema: schema,
       formData: formData,
-      // formData: {},
       jsoninput: '',
       formDataTxt: ''
     }
   },
-  // computed: {
-  //   formDataTxt() {
-  //     return JSON.stringify(this.formData, null ,2)
-  //   }
-  // },
   watch: {
     jsoninput(nval) {
       this.schema = JSON.parse(nval) 
@@ -59,6 +52,11 @@ export default {
   },
   methods: {
     handleChange(val) {
+      // debugger
+      // if (Array.isArray(val)) {
+      //   this.formDataTxt = JSON.parse(JSON.stringify(val) )
+      // } else {
+      // }
       this.formDataTxt = val
     },
     getdata() {
