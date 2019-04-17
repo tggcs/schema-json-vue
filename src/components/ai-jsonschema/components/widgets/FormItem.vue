@@ -1,5 +1,5 @@
 <template>
-  <el-form-item :label="schema.title+':'" :class="{'is-required': schema.required}">
+  <el-form-item :label="schema.title+':'" :class="{'is-required': required}">
     <el-alert :title="schema.description" v-if="schema.description" type="info" show-icon size="small" :closable="false"/>
     <slot/>
     <div class="el-form-item__error" v-show="error.show">{{error.msg}}</div>
@@ -10,7 +10,7 @@
 import utils from '../../utils'
 
 export default {
-  props: ['schema', 'input', 'id', 'errormsg'],
+  props: ['schema', 'input', 'id', 'errormsg', 'required'],
   created() {
     if (this.errormsg) {
       this.error.msg = this.errormsg
@@ -35,7 +35,7 @@ export default {
       this.checkError()
     },
     checkError() {
-      if (!this.schema.required) {
+      if (!this.required) {
         return
       }
       if (this.input == '' || this.input == undefined) {

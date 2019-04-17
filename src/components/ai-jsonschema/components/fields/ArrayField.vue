@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     itemlist() {
-      return (this.formData || []).map((item, index) => {
+      return (Array.isArray(this.formData) ? this.formData : []).map((item, index) => {
         const itemSchema = this.schema.items
         const itemIdPrefix = this.idSchema.$id + "_" + index;
         const itemIdSchema = utils.toIdSchema(
@@ -58,7 +58,7 @@ export default {
   methods: {
     onAddClick() {
       let datainit = utils.getDefaultFormState(this.schema.items, undefined)
-      let array = this.formData || []
+      let array = Array.isArray(this.formData) ? this.formData : []
       array.push(datainit)
       this.$emit('onChange', array)
     },

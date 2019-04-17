@@ -4,6 +4,7 @@
     :schema="schema" 
     :formData="formData" 
     :idSchema="idSchema"
+    :required="required"
     @onChange="handleChange"/>
 </template>
 
@@ -11,7 +12,7 @@
 import utils from '../../utils'
 
 export default {
-  props: ["schema", "formData", "idSchema"],
+  props: ["schema", "formData", "idSchema", "required"],
   created() {
     this.registry = utils.getDefaultRegistry()
   },

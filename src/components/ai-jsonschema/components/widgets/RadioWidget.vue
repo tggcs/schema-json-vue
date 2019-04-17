@@ -1,5 +1,5 @@
 <template>
-  <FormItem ref="FormItem" :schema="schema" :input="input" :id="id" :errormsg="`请选择${schema.title}`">
+  <FormItem ref="FormItem" :schema="schema" :input="input" :id="id" :errormsg="`请选择${schema.title}`" :required="required">
     <el-radio 
       v-for="(label, idx) in schema.enum" 
       v-model="input" 
@@ -14,7 +14,7 @@
 import FormItem from './FormItem.vue'
 
 export default {
-  props: ['id', 'value', 'ui', 'schema'],
+  props: ['id', 'value', 'ui', 'schema', 'required'],
   created() {
     this.input = this.value
   },

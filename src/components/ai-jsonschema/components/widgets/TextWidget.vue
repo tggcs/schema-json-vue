@@ -1,5 +1,5 @@
 <template>
-  <FormItem ref="FormItem" :schema="schema" :input="input" :id="id">
+  <FormItem ref="FormItem" :schema="schema" :input="input" :id="id" :required="required">
     <el-input 
       v-model="input" 
       @change="handleChange" 
@@ -13,7 +13,7 @@
 import FormItem from './FormItem.vue'
 
 export default {
-  props: ['id', 'value', 'ui', 'schema'],
+  props: ['id', 'value', 'ui', 'schema', 'required'],
   created() {
     this.input = this.value
   },

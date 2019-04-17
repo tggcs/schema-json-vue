@@ -2,11 +2,12 @@
   <fieldset>
     <TitleField :title="schema.title"/>
     <DescriptionField :description="schema.description"/>
-    <div v-for="(item, key, index) in properties" :key="index">
+    <div v-for="(item, key, index) in schema.properties" :key="index">
       <SchemaField 
-        :schema="item" 
+        :schema="item"
         :formData="(formData || {})[key]" 
         :idSchema="idSchema[key]"
+        :required="schema.required.indexOf(key)>-1"
         @onChange="handleChange"/>
     </div>
   </fieldset>
@@ -23,17 +24,6 @@ export default {
     TitleField,
     SchemaField,
     DescriptionField
-  },
-  computed: {
-    properties() {
-      for (var key in this.schema.properties) {
-        let item = this.schema.properties[key]
-        if ((this.schema.required || []).indexOf(key)>-1) {
-          item.required = true
-        }
-      }
-      return this.schema.properties
-    }
   },
   methods: {
     handleChange({ id, val}) {

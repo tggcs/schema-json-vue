@@ -4,6 +4,7 @@
     :id="idSchema" 
     :value="formData" 
     :schema="schema" 
+    :required="required"
     @onChange="handleChange"/>
 </template>
 
@@ -11,7 +12,7 @@
 import utils from '../../utils'
 
 export default {
-  props: ["schema", "formData", "idSchema"],
+  props: ["schema", "formData", "idSchema", "required"],
   created() {
     const { widgets } = utils.getDefaultRegistry()
     const widgetType = this.schema.widget || (this.schema.enum ? 'radio' : '') || 'text'
