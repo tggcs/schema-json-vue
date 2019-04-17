@@ -22,7 +22,7 @@
 import AiJsonSchema from './components/ai-jsonschema/index.vue'
 import schema from './data/schema.json'
 import formData from './data/formData.json'
-import sample from './data/sample.json'
+import testjson from './data/lyk/test2.json'
 import sampleFull from './data/sampleFull.json'
 import readme from './components/readme.vue'
 
@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      schema: sampleFull,
+      schema: {},
       // schema: sample,
       // schema: schema,
       formData: formData,

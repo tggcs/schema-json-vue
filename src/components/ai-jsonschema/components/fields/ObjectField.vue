@@ -7,7 +7,7 @@
         :schema="item"
         :formData="(formData || {})[key]" 
         :idSchema="idSchema[key]"
-        :required="schema.required.indexOf(key)>-1"
+        :required="schema.required && schema.required.indexOf(key)>-1"
         @onChange="handleChange"/>
     </div>
   </fieldset>
