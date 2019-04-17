@@ -1,18 +1,26 @@
 <template>
   <div id="app">
     <readme/>
-    <div class="box">
-      <AiJsonSchema 
-        ref="AiJsonSchema"
-        :schema="schema" 
-        :formData="formData" 
-        @onDataChange="handleChange"/>
-      <el-button type="primary" @click="getdata" size="small" class="get-data">校验表单</el-button>
-      <!-- <el-button type="primary" @click="formData = {}" size="small" class="get-data">清空formData</el-button> -->
+    <div>
+      <div class="box">
+        <AiJsonSchema 
+          ref="AiJsonSchema"
+          :schema="schema" 
+          :formData="formData" 
+          @onDataChange="handleChange"/>
+        <el-button type="primary" @click="getdata" size="small" class="get-data">校验表单</el-button>
+        <!-- <el-button type="primary" @click="formData = {}" size="small" class="get-data">清空formData</el-button> -->
+      </div>
+      <div class="box">
+        <p>数据结果</p>
+        <pre>{{formDataTxt}}</pre>
+      </div>
+      <div style="clear:both;"></div>
     </div>
-    <div class="box">
-      <p>数据结果</p>
-      <pre>{{formDataTxt}}</pre>
+    <div style="margin:40px 0 10px;">
+      <el-radio v-model="sampleIdx" label="classdata">sample 1</el-radio>
+      <el-radio v-model="sampleIdx" label="testjson">sample 2</el-radio>
+      <el-radio v-model="sampleIdx" label="testjson2">sample 3</el-radio>
     </div>
     <el-input type="textarea" :rows="50" placeholder="请输入Json内容" v-model="jsoninput"></el-input>
   </div>
@@ -34,7 +42,12 @@ export default {
     readme
   },
   created() {
-    this.jsoninput = JSON.stringify(classdata, null ,2)
+    this.samples = {
+      testjson,
+      testjson2,
+      classdata
+    }
+    this.jsoninput = JSON.stringify(this.samples[this.sampleIdx], null ,2)
     this.formDataTxt = this.formData
   },
   data() {
@@ -42,12 +55,17 @@ export default {
       schema: {},
       formData: formData,
       jsoninput: '',
-      formDataTxt: ''
+      formDataTxt: '',
+      sampleIdx: 'classdata'
     }
   },
   watch: {
     jsoninput(nval) {
       this.schema = JSON.parse(nval) 
+    },
+    sampleIdx(nval) {
+      this.formData = {}
+      this.jsoninput = JSON.stringify(this.samples[this.sampleIdx], null ,2)
     }
   },
   methods: {
