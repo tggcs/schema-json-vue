@@ -34,7 +34,7 @@ export default {
     readme
   },
   created() {
-    this.jsoninput = JSON.stringify(testjson, null ,2)
+    this.jsoninput = JSON.stringify(classdata, null ,2)
     this.formDataTxt = this.formData
   },
   data() {
