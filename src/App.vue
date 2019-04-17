@@ -34,7 +34,7 @@ export default {
     readme
   },
   created() {
-    this.jsoninput = JSON.stringify(testjson2, null ,2)
+    this.jsoninput = JSON.stringify(testjson, null ,2)
     this.formDataTxt = this.formData
   },
   data() {
@@ -52,12 +52,11 @@ export default {
   },
   methods: {
     handleChange(val) {
-      // debugger
-      // if (Array.isArray(val)) {
-      //   this.formDataTxt = JSON.parse(JSON.stringify(val) )
-      // } else {
-      // }
-      this.formDataTxt = val
+      if (Array.isArray(val)) {
+        this.formDataTxt = JSON.parse(JSON.stringify(val) )
+      } else {
+        this.formDataTxt = val
+      }
     },
     getdata() {
       this.$refs['AiJsonSchema'].validate((valid) => {

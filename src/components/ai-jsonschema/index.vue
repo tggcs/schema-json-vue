@@ -37,7 +37,11 @@ export default {
   methods: {
     handleChange(val) {
       this.$emit('onDataChange', val)
-      this.formDataValue = val
+      if (Array.isArray(val)) {
+        this.formDataValue = JSON.parse(JSON.stringify(val) )
+      } else {
+        this.formDataValue = val
+      }
     },
     validate(cb) {
       utils.eventbus.$emit('AiVueSchema', 'HandleSchemaValidate', {})
