@@ -1,0 +1,8 @@
+{
+  "nums": {
+    "ui:widget": "step"
+  },
+  "classinfo": {
+    "ui:widget": "textarea"
+  }
+}

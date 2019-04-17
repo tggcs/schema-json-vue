@@ -1,0 +1,53 @@
+{
+  "title": "通用音乐技能配置面板",
+  "description": "通用音乐技能配置面板-描述",
+  "type": "object",
+  "properties": {
+    "musicChannel": {
+      "title": "信源",
+      "type": "string",
+      "enum": [
+        "qq",
+        "网易"
+      ]
+    },
+    "nlgs": {
+      "title": "nlg配置",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "display",
+          "ageRange",
+          "nlg1"
+        ],
+        "properties": {
+          "display": {
+            "title": "显示",
+            "type": "string",
+            "description": "屏幕类型：有屏、无屏,请不要修改",
+            "enum": [
+              "有屏",
+              "无屏",
+              "通用"
+            ]
+          },
+          "ageRange": {
+            "title": "年龄区间",
+            "type": "string",
+            "description": "年龄区间：成人、儿童，请不要修改",
+            "enum": [
+              "成人",
+              "儿童",
+              "通用"
+            ]
+          },
+          "nlg1": {
+            "title": "查询到歌曲时回复",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

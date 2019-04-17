@@ -1,0 +1,93 @@
+{
+  "title": "完整样例-班级",
+  "description": "完整样例-班级-描述",
+  "type": "object",
+  "required": [
+    "grade",
+    "classinfo"
+  ],
+  "properties": {
+    "teacher": {
+      "title": "班主任",
+      "description": "嵌套Object 班主任 描述",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "姓名",
+          "description": "班主任老师名称",
+          "default": "李老师"
+        },
+        "remark": {
+          "type": "string",
+          "widget": "textarea",
+          "title": "备注"
+        }
+      }
+    },
+    "subject": {
+      "type": "array",
+      "title": "课程",
+      "items": {
+        "required": true,
+        "title": "课程名称",
+        "type": "string",
+        "default": "语文"
+      }
+    },
+    "grade": {
+      "type": "string",
+      "title": "年级",
+      "default": "高一"
+    },
+    "classinfo": {
+      "type": "string",
+      "title": "班级信息",
+      "widget": "textarea",
+      "default": "这是高一11班"
+    },
+    "nums": {
+      "type": "integer",
+      "title": "人数",
+      "widget": "step",
+      "default": "20"
+    },
+    "kind": {
+      "title": "类型",
+      "type": "string",
+      "enum": [
+        "文科",
+        "理科"
+      ]
+    },
+    "students": {
+      "title": "学员",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sex",
+          "ageRange",
+          "nlg1"
+        ],
+        "properties": {
+          "name": {
+            "title": "姓名",
+            "type": "string",
+            "default": "学生甲"
+          },
+          "sex": {
+            "title": "性别",
+            "type": "string",
+            "description": "学员的性别",
+            "enum": [
+              "男",
+              "女"
+            ],
+            "default": "男"
+          }
+        }
+      }
+    }
+  }
+}
