@@ -15,9 +15,11 @@ export default {
     if (this.errormsg) {
       this.error.msg = this.errormsg
     }
-    utils.eventbus.$on('AiVueSchema', 'HandleSchemaValidate', val => {
-      this.checkError()
-    })
+    utils.eventbus.$on('AiVueSchema', 'HandleSchemaValidate', this.checkError)
+  },
+  beforeDestroy() {
+    delete utils.errors[this.id.$id]
+    utils.eventbus.$off('AiVueSchema', 'HandleSchemaValidate', this.checkError)
   },
   data() {
     return {
@@ -34,7 +36,7 @@ export default {
     handleChange(event) {
       this.checkError()
     },
-    checkError() {
+    checkError(data) {
       if (!this.required) {
         return
       }

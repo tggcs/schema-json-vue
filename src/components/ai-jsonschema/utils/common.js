@@ -1,16 +1,17 @@
 export const eventbus = (() => {
   const _bus = {}
   return {
-    init: (key, vm) => {
-      _bus[key] = vm
+    init: (bus, vm) => {
+      _bus[bus] = vm
     },
     $on: (bus, key, fun) => {
-      _bus[bus].$on(key, res => {
-        fun(res)
-      })
+      _bus[bus].$on(key, fun)
     },
     $emit: (bus, key, val) => {
       _bus[bus].$emit(key, val)
+    },
+    $off: (bus, key, fun) => {
+      _bus[bus].$off(key, fun)
     }
   }
 })()
