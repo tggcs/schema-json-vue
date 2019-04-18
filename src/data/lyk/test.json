@@ -6,9 +6,8 @@
   "items": {
     "type": "object",
     "required": [
-      "sex",
-      "ageRange",
-      "nlg1"
+      "name",
+      "sex"
     ],
     "properties": {
       "name": {
