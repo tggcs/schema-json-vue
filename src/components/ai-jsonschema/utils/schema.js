@@ -42,7 +42,7 @@ export function getSchemaType(schema) {
 
 export function getDefaultFormState(schema, formData) {
   const defaults = computeDefaults(schema, schema.default)
-  if (typeof formData === "undefined") {
+  if (typeof formData === "undefined" || schema.type == 'array') {
     return defaults
   }
   if (isObject(formData)) {
@@ -73,28 +73,12 @@ function computeDefaults(schema, parentDefaults) {
       }, {})
 
     case "array":
-      if (schema.minItems) {
-        const defaultsLength = defaults ? defaults.length : 0
-        if (schema.minItems > defaultsLength) {
-          const defaultEntries = defaults || []
-          const fillerSchema = Array.isArray(schema.items)
-            ? schema.additionalItems
-            : schema.items
-          const fillerEntries = fill(
-            new Array(schema.minItems - defaultsLength),
-            computeDefaults(fillerSchema, fillerSchema.defaults)
-          )
-          return defaultEntries.concat(fillerEntries)
-        }
-      }
+      return []
   }
   return defaults
 }
 
 export function isObject(thing) {
-  if (thing instanceof File) {
-    return false
-  }
   return typeof thing === "object" && thing !== null && !Array.isArray(thing)
 }
 

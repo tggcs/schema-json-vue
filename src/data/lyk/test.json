@@ -1,29 +1,58 @@
 {
   "description": "对话输出配置-描述",
-  "required": [],
-  "title": "学员",
+  "title": "对话配置",
   "type": "array",
   "items": {
+    "title": "对话输出配置",
+    "description": "对话输出配置-描述",
     "type": "object",
     "required": [
-      "name",
-      "sex"
+      "ageRange",
+      "display",
+      "nlgconfig"
     ],
     "properties": {
-      "name": {
-        "title": "姓名",
+      "ageRange": {
+        "title": "应用人群",
         "type": "string",
-        "default": "学生甲"
-      },
-      "sex": {
-        "title": "性别",
-        "type": "string",
-        "description": "学员的性别",
         "enum": [
-          "男",
-          "女"
-        ],
-        "default": "男"
+          "成人",
+          "儿童",
+          "通用"
+        ]
+      },
+      "display": {
+        "title": "应用场景",
+        "type": "string",
+        "enum": [
+          "有屏",
+          "无屏",
+          "通用"
+        ]
+      },
+      "nlgconfig": {
+        "title": "NLG配置",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "key",
+            "value"
+          ],
+          "properties": {
+            "key": {
+              "title": "key",
+              "type": "string",
+              "default": "key"
+            },
+            "value": {
+              "title": "value",
+              "type": "string",
+              "description": "具体赋值",
+              "default": "value"
+            }
+          }
+        }
       }
     }
   }
