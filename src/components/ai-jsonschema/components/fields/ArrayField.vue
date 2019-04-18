@@ -102,5 +102,8 @@ fieldset {
     margin-bottom: 22px;
     width: 40px;
   }
+  &-del:hover {
+    background-color: #ebf6ff;
+  }
 }
 </style>
