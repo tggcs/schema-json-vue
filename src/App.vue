@@ -2,11 +2,16 @@
   <div id="app">
     <readme/>
     <div>
+      <div style="margin:40px 0 10px;">
+        <el-radio v-model="sampleIdx" label="classdata">sample 1</el-radio>
+        <el-radio v-model="sampleIdx" label="testjson">sample 2</el-radio>
+        <el-radio v-model="sampleIdx" label="testjson2">sample 3</el-radio>
+      </div>
       <div class="box">
-        <AiJsonSchema 
+        <AiJsonSchema
           ref="AiJsonSchema"
-          :schema="schema" 
-          :formData="formData" 
+          :schema="schema"
+          :formData="formData"
           @onDataChange="handleChange"/>
         <el-button type="primary" @click="getdata" size="small" class="get-data">校验表单</el-button>
         <!-- <el-button type="primary" @click="formData = {}" size="small" class="get-data">清空formData</el-button> -->
@@ -17,26 +22,22 @@
       </div>
       <div style="clear:both;"></div>
     </div>
-    <div style="margin:40px 0 10px;">
-      <el-radio v-model="sampleIdx" label="classdata">sample 1</el-radio>
-      <el-radio v-model="sampleIdx" label="testjson">sample 2</el-radio>
-      <el-radio v-model="sampleIdx" label="testjson2">sample 3</el-radio>
-    </div>
-    <el-input type="textarea" :rows="50" placeholder="请输入Json内容" v-model="jsoninput"></el-input>
+    <el-input :class="{'errorinput': errorinput}" type="textarea" :rows="50" placeholder="请输入Json内容" v-model="jsoninput"></el-input>
   </div>
 </template>
 
 <script>
-import AiJsonSchema from './components/ai-jsonschema/index.vue'
-import readme from './components/readme.vue'
-import formData from './data/formData.json'
+import AiJsonSchema from "./components/ai-jsonschema/index.vue";
+import readme from "./components/readme.vue";
+import formData from "./data/formData.json";
+import validator from "is-my-json-valid";
 
-import testjson from './data/lyk/test.json'
-import testjson2 from './data/lyk/test2.json'
-import classdata from './data/sample/class.json'
+import testjson from "./data/lyk/test.json";
+import testjson2 from "./data/lyk/test2.json";
+import classdata from "./data/sample/class.json";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     AiJsonSchema,
     readme
@@ -46,59 +47,77 @@ export default {
       testjson,
       testjson2,
       classdata
-    }
-    this.jsoninput = JSON.stringify(this.samples[this.sampleIdx], null ,2)
-    this.formDataTxt = this.formData
+    };
+    this.jsoninput = JSON.stringify(this.samples[this.sampleIdx], null, 2);
+    this.formDataTxt = this.formData;
   },
   data() {
     return {
       schema: {},
       formData: formData,
-      jsoninput: '',
-      formDataTxt: '',
-      sampleIdx: 'classdata'
-    }
+      jsoninput: "",
+      formDataTxt: "",
+      sampleIdx: "classdata",
+      errorinput: false
+    };
   },
   watch: {
     jsoninput(nval) {
-      this.schema = JSON.parse(nval) 
+      this.errorinput = false
+      try {
+        this.schema = JSON.parse(nval);
+      } catch (err) {
+        this.errorinput = true
+      }
     },
     sampleIdx(nval) {
-      this.formData = {}
-      this.jsoninput = JSON.stringify(this.samples[this.sampleIdx], null ,2)
+      this.formData = {};
+      this.jsoninput = JSON.stringify(this.samples[this.sampleIdx], null, 2);
     }
   },
   methods: {
     handleChange(val) {
       if (Array.isArray(val)) {
-        this.formDataTxt = JSON.parse(JSON.stringify(val) )
+        this.formDataTxt = JSON.parse(JSON.stringify(val));
       } else {
-        this.formDataTxt = val
+        this.formDataTxt = val;
       }
     },
     getdata() {
-      this.$refs['AiJsonSchema'].validate((valid) => {
-        let checks = Object.keys(valid)
+      let jsoncheck = validator(this.schema);
+
+      this.$refs["AiJsonSchema"].validate(valid => {
+        let checks = Object.keys(valid);
         if (checks.length == 0) {
-          this.$message({
-            message: '填写正确',
-            type: 'success'
+          let schemacheck = jsoncheck(this.formDataTxt, {
+            verbose: true
           });
+          if (schemacheck) {
+            this.$message({
+              message: "填写正确",
+              type: "success"
+            });
+          } else {
+            this.$message({
+              message: "填写有误",
+              type: "success"
+            });
+          }
         } else {
           this.$message({
-            message: '有' + checks.length + '个值需要填写',
-            type: 'warning'
+            message: "有" + checks.length + "个值需要填写",
+            type: "warning"
           });
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -116,5 +135,9 @@ pre {
 }
 .get-data {
   width: 100%;
+}
+.errorinput .el-textarea__inner ,
+.errorinput .el-textarea__inner:focus {
+  border: 2px solid red;
 }
 </style>
