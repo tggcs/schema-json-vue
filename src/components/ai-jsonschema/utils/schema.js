@@ -42,7 +42,7 @@ export function getSchemaType(schema) {
 
 export function getDefaultFormState(schema, formData) {
   const defaults = computeDefaults(schema, schema.default)
-  if (typeof formData === "undefined" || schema.type == 'array') {
+  if (typeof formData === "undefined") {
     return defaults
   }
   if (isObject(formData)) {
