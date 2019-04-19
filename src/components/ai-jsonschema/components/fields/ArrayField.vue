@@ -8,6 +8,7 @@
         :schema="item.schema" 
         :formData="item.formData" 
         :idSchema="item.idSchema" 
+        :required="item.required"
         @onChange="handleChange"/>
         <el-button type="text" icon="el-icon-delete" size="small" @click="onDelClick(index)" class="array-del"></el-button>
     </div>
@@ -48,7 +49,9 @@ export default {
         return {
           schema: itemSchema,
           formData: item,
-          idSchema: itemIdSchema
+          idSchema: itemIdSchema,
+          // string 类型array 默认必填 避免空的脏数据
+          required: itemSchema.type == 'string'
         }
       })
     }
