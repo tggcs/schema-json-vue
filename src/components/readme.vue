@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>AI-JSONSCHEMA操作说明</p>
+    <p>JSONSCHEMA操作说明</p>
     <div>
       <div class="tip">
         当前<br/>
