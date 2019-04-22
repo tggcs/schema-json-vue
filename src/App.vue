@@ -17,7 +17,7 @@
       </div>
       <div class="box">
         <p>数据结果</p>
-        <pre>{{jsonResult}}</pre>
+        <pretty :value="jsonResult"></pretty>
       </div>
       <div style="clear:both;"></div>
     </div>
@@ -28,6 +28,7 @@
 <script>
 import AiJsonSchema from "./components/ai-jsonschema/index.vue";
 import readme from "./components/readme.vue";
+import pretty from "./components/pretty.vue";
 import formData from "./data/formData.json";
 import validator from "is-my-json-valid";
 
@@ -39,7 +40,8 @@ export default {
   name: "app",
   components: {
     AiJsonSchema,
-    readme
+    readme,
+    pretty
   },
   created() {
     this.samples = {
