@@ -37,9 +37,11 @@ export default {
       this.checkError()
     },
     checkError(data) {
-      if (!this.required) {
-        return
+      if (this.required) {
+        this.checkRequired()
       }
+    },
+    checkRequired(){
       if (this.input == '' || this.input == undefined) {
         utils.errors[this.id.$id] = this.schema
         this.error.show = true

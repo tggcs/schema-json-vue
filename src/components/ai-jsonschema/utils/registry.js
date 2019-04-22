@@ -20,13 +20,23 @@ const widgetMap = {
 export function getDefaultRegistry() {
   return {
     fields: fields,
-    widgets: widgets,
-    definitions: {},
-    formContext: {},
-  };
+    widgets: widgets
+  }
 }
 
-export function getWidget(schema, widget, registeredWidgets = {}) {
-  const type = getSchemaType(schema);
-  return registeredWidgets[widgetMap[type][widget]];
+export function getWidgetType(schema) {
+  if (schema.widget) {
+    return schema.widget
+  }
+  if (schema.enum) {
+    return 'radio'
+  }
+  return 'text'
+}
+
+export function getWidget(schema) {
+  const type = getSchemaType(schema)
+  const widget = getWidgetType(schema)
+  const { widgets } = getDefaultRegistry()
+  return widgets[widgetMap[type][widget]]
 }

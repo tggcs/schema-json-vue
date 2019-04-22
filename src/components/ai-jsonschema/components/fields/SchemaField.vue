@@ -1,10 +1,10 @@
 <template>
   <component 
-    :is="filedComponent" 
+    :json="json" 
     :schema="schema" 
-    :formData="formData" 
     :idSchema="idSchema"
     :required="required"
+    :is="filedComponent" 
     @onChange="handleChange"/>
 </template>
 
@@ -12,7 +12,7 @@
 import utils from '../../utils'
 
 export default {
-  props: ["schema", "formData", "idSchema", "required"],
+  props: ["schema", "json", "idSchema", "required"],
   created() {
     this.registry = utils.getDefaultRegistry()
   },

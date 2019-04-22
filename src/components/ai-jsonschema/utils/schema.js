@@ -1,3 +1,5 @@
+import { isObject } from './common'
+
 export const COMPONENT_TYPES = {
   array: "ArrayField",
   boolean: "BooleanField",
@@ -42,17 +44,14 @@ export function getSchemaType(schema) {
 
 export function getDefaultFormState(schema, formData) {
   const defaults = computeDefaults(schema, schema.default)
-  if (typeof formData === "undefined") {
-    return defaults
-  }
   if (isObject(formData)) {
     return mergeObjects(defaults, formData)
   }
   return formData || defaults
 }
 
-function computeDefaults(schema, parentDefaults) {
-  let defaults = parentDefaults
+function computeDefaults(schema) {
+  let defaults
   if (isObject(defaults) && isObject(schema.default)) {
     defaults = mergeObjects(defaults, schema.default)
   } else if ("default" in schema) {
@@ -65,21 +64,14 @@ function computeDefaults(schema, parentDefaults) {
   switch (schema.type) {
     case "object":
       return Object.keys(schema.properties || {}).reduce((acc, key) => {
-        acc[key] = computeDefaults(
-          schema.properties[key],
-          (defaults || {})[key]
-        )
+        acc[key] = computeDefaults(schema.properties[key])
         return acc
       }, {})
-
     case "array":
       return []
   }
+  
   return defaults
-}
-
-export function isObject(thing) {
-  return typeof thing === "object" && thing !== null && !Array.isArray(thing)
 }
 
 export function mergeObjects(obj1, obj2, concatArrays = false) {

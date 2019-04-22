@@ -1,32 +1,31 @@
 <template>
-  <el-form label-width="130px" size="small" class="ai-jsonschema">
+  <el-form label-width="130px" size="small" class="vue-jsonschema">
     <MainRoot 
       :key="refresh"
       :schema="schema" 
-      :formData="formDataValue"
+      :json="jsonValue"
       @onChange="handleChange"/>
   </el-form>
 </template>
 
 <script>
-import MainRoot from './components/index.vue'
 import utils from './utils'
+import MainRoot from './components/index.vue'
 
 export default {
-  VERSION: 'v0.1.1',
-  props: ["schema", "formData"],
+  props: ["schema", "json"],
   created() {
     this.initData()
   },
   data() {
     return {
-      formDataValue: {},
-      // 重新渲染组建 
+      jsonValue: {},
+      // 重新渲染组件
       refresh: (+new Date())
     }
   },
   watch: {
-    formData(nval) {
+    json(nval) {
       this.initData()
       this.refresh = +new Date()
     },
@@ -39,11 +38,11 @@ export default {
   },
   methods: {
     handleChange(val) {
-      this.$emit('onDataChange', val)
+      this.$emit('onJsonChange', val)
       if (Array.isArray(val)) {
-        this.formDataValue = JSON.parse(JSON.stringify(val) )
+        this.jsonValue = JSON.parse(JSON.stringify(val) )
       } else {
-        this.formDataValue = val
+        this.jsonValue = val
       }
     },
     validate(cb) {
@@ -51,15 +50,15 @@ export default {
       cb(utils.errors)
     },
     initData() {
-      this.formDataValue = utils.getDefaultFormState(this.schema, this.formData)
-      this.$emit('onDataChange', this.formDataValue)
+      this.jsonValue = utils.getDefaultFormState(this.schema, this.json)
+      this.$emit('onJsonChange', this.jsonValue)
     }
   }
 };
 </script>
 
 <style lang="scss">
-.ai-jsonschema {
+.vue-jsonschema {
   .el-form-item__label {
     font-size: 12px;
   }

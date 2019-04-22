@@ -1,8 +1,8 @@
 <template>
   <component 
     :is="widget" 
+    :value="json" 
     :id="idSchema" 
-    :value="formData" 
     :schema="schema"
     @onChange="handleChange"/>
 </template>
@@ -11,10 +11,9 @@
 import utils from '../../utils'
 
 export default {
-  props: ["schema", "formData", "idSchema"],
+  props: ["schema", "json", "idSchema"],
   created() {
-    const { widgets } = utils.getDefaultRegistry()
-    this.widget = utils.getWidget(this.schema, this.schema.widget || 'text', widgets);
+    this.widget = utils.getWidget(this.schema);
   },
   data() {
     return {
@@ -28,7 +27,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

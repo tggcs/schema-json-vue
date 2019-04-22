@@ -6,7 +6,7 @@
       <SchemaField
         :key="refresh"
         :schema="item.schema" 
-        :formData="item.formData" 
+        :json="item.json" 
         :idSchema="item.idSchema" 
         :required="item.required"
         @onChange="handleChange"/>
@@ -23,7 +23,7 @@ import SchemaField from './SchemaField.vue'
 import DescriptionField from './DescriptionField.vue'
 
 export default {
-  props: ["schema", "formData", "idSchema"],
+  props: ["schema", "json", "idSchema"],
   data() {
     return {
       refresh: (+new Date())
@@ -36,19 +36,13 @@ export default {
   },
   computed: {
     itemlist() {
-      return (Array.isArray(this.formData) ? this.formData : []).map((item, index) => {
+      return (Array.isArray(this.json) ? this.json : []).map((item, index) => {
         const itemSchema = this.schema.items
         const itemIdPrefix = this.idSchema.$id + "_" + index;
-        const itemIdSchema = utils.toIdSchema(
-          itemSchema,
-          itemIdPrefix,
-          undefined,
-          item,
-          undefined
-        )
+        const itemIdSchema = utils.toIdSchema(itemSchema, itemIdPrefix, item)
         return {
+          json: item,
           schema: itemSchema,
-          formData: item,
           idSchema: itemIdSchema,
           // string 类型array 默认必填 避免空的脏数据
           required: itemSchema.type == 'string'
@@ -59,19 +53,19 @@ export default {
   methods: {
     onAddClick() {
       let datainit = utils.getDefaultFormState(this.schema.items, undefined)
-      let array = Array.isArray(this.formData) ? this.formData : []
+      let array = Array.isArray(this.json) ? this.json : []
       array.push(datainit)
       this.$emit('onChange', array)
     },
     onDelClick(index) {
-      this.formData.splice(index, 1)
-      this.$emit('onChange', this.formData)
+      this.json.splice(index, 1)
+      this.$emit('onChange', this.json)
       this.refresh = +new Date()
     },
     handleChange({ id, val}) {
       const key = id.$id.replace(`${this.idSchema.$id}_`, '')
-      this.formData[+key] = val
-      this.$emit('onChange', this.formData)
+      this.json[+key] = val
+      this.$emit('onChange', this.json)
     }
   }
 }

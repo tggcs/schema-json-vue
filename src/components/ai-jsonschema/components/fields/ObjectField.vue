@@ -5,7 +5,7 @@
     <div v-for="(item, key, index) in schema.properties" :key="index">
       <SchemaField 
         :schema="item"
-        :formData="(formData || {})[key]" 
+        :json="(json || {})[key]" 
         :idSchema="idSchema[key]"
         :required="schema.required && schema.required.indexOf(key)>-1"
         @onChange="handleChange"/>
@@ -19,7 +19,7 @@ import SchemaField from './SchemaField.vue'
 import DescriptionField from './DescriptionField.vue'
 
 export default {
-  props: ["schema", "formData", "idSchema"],
+  props: ["schema", "json", "idSchema"],
   components: {
     TitleField,
     SchemaField,
@@ -28,7 +28,7 @@ export default {
   methods: {
     handleChange({ id, val}) {
       const key = id.$id.replace(`${this.idSchema.$id}_`, '')
-      const newData = { ...this.formData, [key]: val }
+      const newData = { ...this.json, [key]: val }
       this.$emit('onChange', newData)
     }
   }

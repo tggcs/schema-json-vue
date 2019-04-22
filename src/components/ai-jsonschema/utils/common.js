@@ -1,3 +1,7 @@
+export function isObject(thing) {
+  return typeof thing === "object" && thing !== null && !Array.isArray(thing)
+}
+
 export const eventbus = (() => {
   const _bus = {}
   return {

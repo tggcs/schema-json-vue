@@ -11,18 +11,17 @@
         <AiJsonSchema
           ref="AiJsonSchema"
           :schema="schema"
-          :formData="formData"
-          @onDataChange="handleChange"/>
-        <el-button type="primary" @click="getdata" size="small" class="get-data">校验表单</el-button>
-        <!-- <el-button type="primary" @click="formData = {}" size="small" class="get-data">清空formData</el-button> -->
+          :json="json"
+          @onJsonChange="handleChange"/>
+        <el-button type="primary" @click="checkdata" size="small" class="get-data">校验表单</el-button>
       </div>
       <div class="box">
         <p>数据结果</p>
-        <pre>{{formDataTxt}}</pre>
+        <pre>{{jsonResult}}</pre>
       </div>
       <div style="clear:both;"></div>
     </div>
-    <el-input :class="{'errorinput': errorinput}" type="textarea" :rows="50" placeholder="请输入Json内容" v-model="jsoninput"></el-input>
+    <el-input :class="{'errorinput': errorInput}" type="textarea" :rows="50" placeholder="请输入Json内容" v-model="schemaInput"></el-input>
   </div>
 </template>
 
@@ -48,48 +47,47 @@ export default {
       testjson2,
       classdata
     };
-    this.jsoninput = JSON.stringify(this.samples[this.sampleIdx], null, 2);
-    this.formDataTxt = this.formData;
+    this.sampleIdx = "classdata"
   },
   data() {
     return {
       schema: {},
-      formData: formData,
-      jsoninput: "",
-      formDataTxt: "",
-      sampleIdx: "classdata",
-      errorinput: false
+      schemaInput: "",
+      json: {},
+      jsonResult: {},
+      sampleIdx: "",
+      errorInput: false
     };
   },
   watch: {
-    jsoninput(nval) {
-      this.errorinput = false
+    schemaInput(nval) {
+      this.errorInput = false
       try {
         this.schema = JSON.parse(nval);
       } catch (err) {
-        this.errorinput = true
+        this.errorInput = true
       }
     },
     sampleIdx(nval) {
-      this.formData = {};
-      this.jsoninput = JSON.stringify(this.samples[this.sampleIdx], null, 2);
+      this.json = {};
+      this.schemaInput = JSON.stringify(this.samples[this.sampleIdx], null, 2);
     }
   },
   methods: {
     handleChange(val) {
       if (Array.isArray(val)) {
-        this.formDataTxt = JSON.parse(JSON.stringify(val));
+        this.jsonResult = JSON.parse(JSON.stringify(val));
       } else {
-        this.formDataTxt = val;
+        this.jsonResult = val;
       }
     },
-    getdata() {
+    checkdata() {
       let jsoncheck = validator(this.schema);
 
       this.$refs["AiJsonSchema"].validate(valid => {
         let checks = Object.keys(valid);
         if (checks.length == 0) {
-          let schemacheck = jsoncheck(this.formDataTxt, {
+          let schemacheck = jsoncheck(this.jsonResult, {
             verbose: true
           });
           if (schemacheck) {
