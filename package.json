@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "publish": "vue-cli-service build --target lib --name schema-json-vue src/components/ai-jsonschema/index.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
