@@ -6,6 +6,7 @@
         <el-radio v-model="sampleIdx" label="classdata">sample 1</el-radio>
         <el-radio v-model="sampleIdx" label="testjson">sample 2</el-radio>
         <el-radio v-model="sampleIdx" label="testjson2">sample 3</el-radio>
+        <el-radio v-model="sampleIdx" label="testjsoncj">sample 4</el-radio>
       </div>
       <div class="box">
         <AiJsonSchema
@@ -35,6 +36,7 @@ import validator from "is-my-json-valid";
 import testjson from "./data/lyk/test.json";
 import testjson2 from "./data/lyk/test2.json";
 import classdata from "./data/sample/class.json";
+import testjsoncj from "./data/cj/test.json";
 
 export default {
   name: "app",
@@ -47,7 +49,8 @@ export default {
     this.samples = {
       testjson,
       testjson2,
-      classdata
+      classdata,
+      testjsoncj
     };
     this.sampleIdx = "classdata"
   },

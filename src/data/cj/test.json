@@ -1,0 +1,96 @@
+{
+  "description": "对话输出配置-描述",
+  "title": "对话配置",
+  "type": "array",
+  "items": {
+    "title": "对话输出配置",
+    "description": "对话输出配置-描述",
+    "type": "object",
+    "required": [
+      "ageRange",
+      "display",
+      "nlg-guo",
+      "nlg-lin"
+    ],
+    "properties": {
+      "ageRange": {
+        "title": "应用人群",
+        "type": "string",
+        "enum": [
+          "adult",
+          "child",
+          "general"
+        ]
+      },
+      "display": {
+        "title": "应用场景",
+        "type": "string",
+        "enum": [
+          "screen",
+          "none",
+          "general"
+        ]
+      },
+      "nlg-guo": {
+        "title": "NLG配置-郭德纲",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "key",
+            "value"
+          ],
+          "properties": {
+            "key": {
+              "title": "音色",
+              "type": "string",
+              "enum": [
+                "默认",
+                "找到一个结果",
+                "找到多个结果",
+                "没有找到结果"
+              ],
+              "default": "默认"
+            },
+            "value": {
+              "title": "播报",
+              "type": "string",
+              "description": "设定播报内容",
+              "default": "你好"
+            }
+          }
+        }
+      },
+      "nlg-lin": {
+        "title": "NLG配置-林志玲",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "key",
+            "value"
+          ],
+          "properties": {
+            "key": {
+              "title": "音色",
+              "type": "string",
+              "enum": [
+                "默认",
+                "找到一个结果",
+                "找到多个结果",
+                "没有找到结果"
+              ],
+              "default": "默认"
+            },
+            "value": {
+              "title": "播报",
+              "type": "string",
+              "description": "设定播报内容",
+              "default": "你好"
+            }
+          }
+        }
+      }
+    }
+  }
+}
