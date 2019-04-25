@@ -6,6 +6,7 @@ export const COMPONENT_TYPES = {
   integer: "NumberField",
   object: "ObjectField",
   string: "StringField",
+  boolean: "StringField",
 }
 
 export function toIdSchema(

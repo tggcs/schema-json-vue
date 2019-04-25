@@ -4,6 +4,7 @@ import widgets from '../components/widgets'
 
 const widgetMap = {
   boolean: {
+    switch: "SwitchWidget"
   },
   string: {
     text: "TextWidget",

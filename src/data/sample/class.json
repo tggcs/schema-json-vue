@@ -11,6 +11,9 @@
       "title": "班主任",
       "description": "嵌套Object 班主任 描述",
       "type": "object",
+      "required": [
+        "name"
+      ],
       "properties": {
         "name": {
           "type": "string",
@@ -22,6 +25,11 @@
           "type": "string",
           "widget": "textarea",
           "title": "备注"
+        },
+        "isSpecial": {
+          "type": "boolean",
+          "widget": "switch",
+          "title": "特级教师"
         }
       }
     },
