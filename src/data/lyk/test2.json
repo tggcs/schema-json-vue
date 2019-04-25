@@ -30,9 +30,6 @@
       "title": "对话输出配置",
       "description": "对话输出配置-描述",
       "type": "object",
-      "required": [
-        "configitem"
-      ],
       "properties": {
         "configitem": {
           "title": "NLG配置",

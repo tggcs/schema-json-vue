@@ -8,9 +8,7 @@
     "type": "object",
     "required": [
       "ageRange",
-      "display",
-      "nlg-guo",
-      "nlg-lin"
+      "display"
     ],
     "properties": {
       "ageRange": {
