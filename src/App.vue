@@ -4,9 +4,9 @@
     <div>
       <div style="margin:40px 0 10px;">
         <el-radio v-model="sampleIdx" label="classdata">sample 1</el-radio>
-        <el-radio v-model="sampleIdx" label="testjson">sample 2</el-radio>
-        <el-radio v-model="sampleIdx" label="testjson2">sample 3</el-radio>
-        <el-radio v-model="sampleIdx" label="testjsoncj">sample 4</el-radio>
+        <el-radio v-model="sampleIdx" label="DSKDM_SCHEMA">sample 2</el-radio>
+        <el-radio v-model="sampleIdx" label="TEST_SCHEMA">sample 3</el-radio>
+        <el-radio v-model="sampleIdx" label="TTS_SCHEMA">sample 4</el-radio>
       </div>
       <div class="box">
         <AiJsonSchema
@@ -37,6 +37,9 @@ import testjson from "./data/lyk/test.json";
 import testjson2 from "./data/lyk/test2.json";
 import classdata from "./data/sample/class.json";
 import testjsoncj from "./data/cj/test.json";
+import DSKDM_SCHEMA from "./data/cj/DSKDM_SCHEMA.json";
+import TEST_SCHEMA from "./data/cj/TEST_SCHEMA.json";
+import TTS_SCHEMA from "./data/cj/TTS_SCHEMA.json";
 
 export default {
   name: "app",
@@ -50,7 +53,10 @@ export default {
       testjson,
       testjson2,
       classdata,
-      testjsoncj
+      testjsoncj,
+      DSKDM_SCHEMA,
+      TEST_SCHEMA,
+      TTS_SCHEMA
     };
     this.sampleIdx = "classdata"
   },

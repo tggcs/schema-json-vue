@@ -1,0 +1,63 @@
+{
+    "description": "对话输出配置-描述",
+    "title": "对话配置",
+    "type": "array",
+    "items": {
+        "title": "对话输出配置",
+        "description": "对话输出配置-描述",
+        "type": "object",
+        "required": [
+            "ageRange",
+            "display",
+            "nlgconfig"
+        ],
+        "properties": {
+            "ageRange": {
+                "title": "应用人群",
+                "type": "string",
+                "enum": [
+                    "adult",
+                    "child",
+                    "general"
+                ]
+            },
+            "display": {
+                "title": "应用场景",
+                "type": "string",
+                "enum": [
+                    "screen",
+                    "none",
+                    "general"
+                ]
+            },
+            "nlgconfig": {
+                "title": "对话回复配置",
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": [
+                        "key",
+                        "value"
+                    ],
+                    "properties": {
+                        "key": {
+                            "title": "对话条件",
+                            "type": "string",
+                            "description": "对话条件描述",
+                            "enum": [
+                                "默认"
+                            ],
+                            "default": "默认"
+                        },
+                        "value": {
+                            "title": "对话回复",
+                            "type": "string",
+                            "description": "具体播报内容",
+                            "default": "你好"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
