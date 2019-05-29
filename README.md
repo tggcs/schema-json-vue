@@ -2,6 +2,7 @@
 
 ## 功能
 演示 https://tggcs.github.io/projects/schema-json-vue/index.html
+
 参考 https://mozilla-services.github.io/react-jsonschema-form/
 
 实现了一个vue2的版本，当前支持简单的功能。
