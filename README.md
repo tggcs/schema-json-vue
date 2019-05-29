@@ -156,3 +156,7 @@ methods: {
 │  └─ schema.js schema方法
 └─ index.vue 入口
 ``` -->
+
+## 爆炸的设计图
+
+<img src="./WechatIMG3.jpeg"/>
