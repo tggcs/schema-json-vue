@@ -4,7 +4,7 @@
     <div>
       <div class="tip">
         当前<br/>
-        支持了四种输入控件：单行文本[默认]，多行文本[textarea]，单选[enum默认]，计数器[step]<br/>
+        支持了五种输入控件：单行文本[默认]，多行文本[textarea]，单选[enum默认]，计数器[step]，开关[switch]<br/>
         支持了一种属性：必填[required]<br/>
         如下是完整的jsonschema演示
       </div>
