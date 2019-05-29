@@ -13,6 +13,7 @@ import utils from './utils'
 import MainRoot from './components/index.vue'
 
 export default {
+  name: 'SchemaJsonVue',
   props: ["schema", "json"],
   created() {
     this.initData()

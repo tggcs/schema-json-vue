@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import AiJsonSchema from "./components/ai-jsonschema/index.vue";
+import AiJsonSchema from "../src/index.vue";
 import readme from "./components/readme.vue";
 import pretty from "./components/pretty.vue";
 import formData from "./data/formData.json";
