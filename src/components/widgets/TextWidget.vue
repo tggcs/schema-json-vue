@@ -1,11 +1,12 @@
 <template>
   <FormItem ref="FormItem" :schema="schema" :input="input" :id="id" :required="required">
-    <el-input 
-      v-model="input" 
-      @change="handleChange" 
-      @blur="handleBlur" 
-      size="small" 
-      :placeholder="`请输入${schema.title}`"/>
+    <el-input
+      v-model="input"
+      @change="handleChange"
+      @blur="handleBlur"
+      size="small"
+      :placeholder="`请输入${schema.title}`"
+    />
   </FormItem>
 </template>
 

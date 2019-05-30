@@ -1,9 +1,5 @@
 <template>
-  <SchemaField 
-    :json="json" 
-    :schema="schema" 
-    :idSchema="idSchema"
-    @onChange="handleChange"/>
+  <SchemaField :json="json" :schema="schema" :idSchema="idSchema" @onChange="handleChange"/>
 </template>
 
 <script>

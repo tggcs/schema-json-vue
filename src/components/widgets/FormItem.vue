@@ -1,6 +1,13 @@
 <template>
   <el-form-item :label="schema.title+':'" :class="{'is-required': required}">
-    <el-alert :title="schema.description" v-if="schema.description" type="info" show-icon size="small" :closable="false"/>
+    <el-alert
+      :title="schema.description"
+      v-if="schema.description"
+      type="info"
+      show-icon
+      size="small"
+      :closable="false"
+    />
     <slot/>
     <div class="el-form-item__error" v-show="error.show">{{error.msg}}</div>
   </el-form-item>

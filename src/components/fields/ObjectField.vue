@@ -3,12 +3,13 @@
     <TitleField :title="schema.title"/>
     <DescriptionField :description="schema.description"/>
     <div v-for="(item, key, index) in schema.properties" :key="index">
-      <SchemaField 
+      <SchemaField
         :schema="item"
-        :json="(json || {})[key]" 
+        :json="(json || {})[key]"
         :idSchema="idSchema[key]"
         :required="schema.required && schema.required.indexOf(key)>-1"
-        @onChange="handleChange"/>
+        @onChange="handleChange"
+      />
     </div>
   </fieldset>
 </template>

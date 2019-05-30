@@ -1,11 +1,6 @@
 <template>
   <FormItem ref="FormItem" :schema="schema" :input="input" :id="id" :required="required">
-    <el-input-number 
-      v-model="input" 
-      @change="handleChange" 
-      size="small" 
-      label="描述文字">
-    </el-input-number>
+    <el-input-number v-model="input" @change="handleChange" size="small" label="描述文字"></el-input-number>
   </FormItem>
 </template>
 

@@ -1,11 +1,12 @@
 <template>
-  <component 
-    :json="json" 
-    :schema="schema" 
+  <component
+    :json="json"
+    :schema="schema"
     :idSchema="idSchema"
     :required="required"
-    :is="filedComponent" 
-    @onChange="handleChange"/>
+    :is="filedComponent"
+    @onChange="handleChange"
+  />
 </template>
 
 <script>

@@ -1,12 +1,20 @@
 <template>
-  <FormItem ref="FormItem" :schema="schema" :input="input" :id="id" :errormsg="`请选择${schema.title}`" :required="required">
-    <el-radio 
-      v-for="(label, idx) in schema.enum" 
-      v-model="input" 
-      :label="label" 
-      @change="handleChange" 
-      size="small" 
-      :key="idx">{{label}}</el-radio>
+  <FormItem
+    ref="FormItem"
+    :schema="schema"
+    :input="input"
+    :id="id"
+    :errormsg="`请选择${schema.title}`"
+    :required="required"
+  >
+    <el-radio
+      v-for="(label, idx) in schema.enum"
+      v-model="input"
+      :label="label"
+      @change="handleChange"
+      size="small"
+      :key="idx"
+    >{{label}}</el-radio>
   </FormItem>
 </template>
 

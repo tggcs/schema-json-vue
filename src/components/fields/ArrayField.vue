@@ -5,12 +5,19 @@
     <div v-for="(item, index) in itemlist" :key="index" class="array-item">
       <SchemaField
         :key="refresh"
-        :schema="item.schema" 
-        :json="item.json" 
-        :idSchema="item.idSchema" 
+        :schema="item.schema"
+        :json="item.json"
+        :idSchema="item.idSchema"
         :required="item.required"
-        @onChange="handleChange"/>
-        <el-button type="text" icon="el-icon-delete" size="small" @click="onDelClick(index)" class="array-del"></el-button>
+        @onChange="handleChange"
+      />
+      <el-button
+        type="text"
+        icon="el-icon-delete"
+        size="small"
+        @click="onDelClick(index)"
+        class="array-del"
+      ></el-button>
     </div>
     <el-button type="primary" @click="onAddClick" size="small" class="array-add">添加</el-button>
   </fieldset>

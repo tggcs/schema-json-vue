@@ -1,10 +1,6 @@
 <template>
   <FormItem ref="FormItem" :schema="schema" :input="input" :id="id" :required="true">
-    <el-switch
-      v-model="input" 
-      @change="handleChange" 
-      size="small">
-    </el-switch>
+    <el-switch v-model="input" @change="handleChange" size="small"></el-switch>
   </FormItem>
 </template>
 

@@ -1,10 +1,6 @@
 <template>
   <el-form label-width="130px" size="small" class="vue-jsonschema">
-    <MainRoot 
-      :key="refresh"
-      :schema="schema" 
-      :json="jsonValue"
-      @onChange="handleChange"/>
+    <MainRoot :key="refresh" :schema="schema" :json="jsonValue" @onChange="handleChange"/>
   </el-form>
 </template>
 
