@@ -1,67 +1,30 @@
-import { isObject } from './common'
+import { isObject, warn } from './common'
 
-export const COMPONENT_TYPES = {
-  array: "ArrayField",
-  boolean: "BooleanField",
-  integer: "NumberField",
-  object: "ObjectField",
-  string: "StringField",
-  boolean: "StringField",
-}
-
-export function toIdSchema(
-  schema,
-  id,
-  formData = {},
-  idPrefix = "root"
-) {
+export function toIdSchema(schema, id = 'root') {
   const idSchema = {
-    $id: id || idPrefix,
+    $id: id
   }
-  if ("items" in schema) {
-    return toIdSchema(schema.items, id, formData, idPrefix)
+  switch (schema.type) {
+    case "object":
+      return Object.keys(schema.properties || {}).reduce((acc, key) => {
+        acc[key] = toIdSchema(schema.properties[key], id + "_" + key)
+        return acc
+      }, idSchema)
+    case "array":
+      return toIdSchema(schema.items, id)
+    default:
+      return idSchema
   }
-  if (schema.type !== "object") {
-    return idSchema
-  }
-  for (const name in schema.properties || {}) {
-    const field = schema.properties[name]
-    const fieldId = idSchema.$id + "_" + name
-    idSchema[name] = toIdSchema(
-      field,
-      fieldId,
-      (formData || {})[name],
-      idPrefix
-    )
-  }
-  return idSchema
 }
 
-
-export function getSchemaType(schema) {
-  let { type } = schema
-  return type
-}
-
+// merge defaults data from current schema & formData
 export function getDefaultFormState(schema, formData) {
-  const defaults = computeDefaults(schema, schema.default)
-  if (isObject(formData)) {
-    return mergeObjects(defaults, formData)
-  }
-  return formData || defaults
+  const defaults = computeDefaults(schema)
+  return mergeObjects(defaults, formData)
 }
 
-function computeDefaults(schema) {
-  let defaults
-  if (isObject(defaults) && isObject(schema.default)) {
-    defaults = mergeObjects(defaults, schema.default)
-  } else if ("default" in schema) {
-    defaults = schema.default
-  }
-  if (typeof defaults === "undefined") {
-    defaults = schema.default
-  }
-
+// get defaults data from current schema
+export function computeDefaults(schema) {
   switch (schema.type) {
     case "object":
       return Object.keys(schema.properties || {}).reduce((acc, key) => {
@@ -70,9 +33,16 @@ function computeDefaults(schema) {
       }, {})
     case "array":
       return []
+    case "boolean":
+      return !!schema.default
+    case "integer":
+      return schema.default || 0
+    case "string":
+      return schema.default || ""
+    default:
+      warn(`schema type error => schema: ${JSON.stringify(schema)}`)
+      return schema.default || ""
   }
-  
-  return defaults
 }
 
 export function mergeObjects(obj1, obj2, concatArrays = false) {

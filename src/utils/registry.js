@@ -1,9 +1,9 @@
-import { getSchemaType } from "./schema";
 import fields from '../components/fields'
 import widgets from '../components/widgets'
 
 const widgetMap = {
   boolean: {
+    text: "TextWidget",
     switch: "SwitchWidget"
   },
   string: {
@@ -26,18 +26,11 @@ export function getDefaultRegistry() {
 }
 
 export function getWidgetType(schema) {
-  if (schema.widget) {
-    return schema.widget
-  }
-  if (schema.enum) {
-    return 'radio'
-  }
-  return 'text'
+  return schema.widget || (schema.enum && 'radio') || 'text'
 }
 
 export function getWidget(schema) {
-  const type = getSchemaType(schema)
   const widget = getWidgetType(schema)
   const { widgets } = getDefaultRegistry()
-  return widgets[widgetMap[type][widget]]
+  return widgets[widgetMap[schema.type][widget]]
 }

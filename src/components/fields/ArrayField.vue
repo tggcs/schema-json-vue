@@ -39,7 +39,7 @@ export default {
       return (Array.isArray(this.json) ? this.json : []).map((item, index) => {
         const itemSchema = this.schema.items
         const itemIdPrefix = this.idSchema.$id + "_" + index;
-        const itemIdSchema = utils.toIdSchema(itemSchema, itemIdPrefix, item)
+        const itemIdSchema = utils.toIdSchema(itemSchema, itemIdPrefix)
         return {
           json: item,
           schema: itemSchema,
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     onAddClick() {
-      let datainit = utils.getDefaultFormState(this.schema.items, undefined)
+      let datainit = utils.computeDefaults(this.schema.items)
       let array = Array.isArray(this.json) ? this.json : []
       array.push(datainit)
       this.$emit('onChange', array)

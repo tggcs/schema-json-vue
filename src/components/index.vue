@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     idSchema() {
-      return utils.toIdSchema(this.schema, undefined, this.json)
+      return utils.toIdSchema(this.schema)
     }
   },
   components: {

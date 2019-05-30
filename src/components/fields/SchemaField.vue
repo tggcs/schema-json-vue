@@ -11,6 +11,14 @@
 <script>
 import utils from '../../utils'
 
+const COMPONENT_TYPES = {
+  array: "ArrayField",
+  object: "ObjectField",
+  string: "CustomField",
+  integer: "CustomField",
+  boolean: "CustomField"
+}
+
 export default {
   props: ["schema", "json", "idSchema", "required"],
   created() {
@@ -23,7 +31,7 @@ export default {
   },
   computed: {
     filedComponent() {
-      const componentName = utils.COMPONENT_TYPES[utils.getSchemaType(this.schema)]
+      const componentName = COMPONENT_TYPES[this.schema.type]
       return this.registry.fields[componentName]
     }
   },

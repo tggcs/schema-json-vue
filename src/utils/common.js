@@ -2,6 +2,7 @@ export function isObject(thing) {
   return typeof thing === "object" && thing !== null && !Array.isArray(thing)
 }
 
+// eventbus factory
 export const eventbus = (() => {
   const _bus = {}
   return {
@@ -22,3 +23,7 @@ export const eventbus = (() => {
 
 // 校验结果
 export let errors = {}
+
+export const warn = (msg) => {
+  console.warn(msg)
+}
