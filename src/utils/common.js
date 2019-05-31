@@ -24,6 +24,7 @@ export const eventbus = (() => {
 // 校验结果
 export let errors = {}
 
-export const warn = (msg) => {
+export const warn = (msg, data) => {
   console.warn(msg)
+  console.log(data)
 }

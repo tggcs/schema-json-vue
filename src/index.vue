@@ -26,8 +26,11 @@ export default {
     schema(nval) {
       this.initData()
     },
-    jsonschema(nval) {
-      this.$emit('onJsonChange', nval)
+    jsonschema: {
+      handler: (nval) => {
+        this.$emit('onJsonChange', nval)
+      },
+      deep: true
     }
   },
   components: {
