@@ -1,11 +1,10 @@
 <template>
   <component
     :is="widget"
-    :value="json"
+    :value.sync="_json"
     :id="idSchema"
     :schema="schema"
     :required="required"
-    @onChange="handleChange"
   />
 </template>
 
@@ -22,9 +21,14 @@ export default {
       widget: {}
     };
   },
-  methods: {
-    handleChange(val) {
-      this.$emit("onChange", val);
+  computed: {
+    _json: {
+      get() {
+        return this.json
+      },
+      set(nval) {
+        this.$emit('update:json', nval)
+      }
     }
   }
 };

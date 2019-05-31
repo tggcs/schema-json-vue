@@ -3,13 +3,12 @@
     <TitleField :title="schema.title"/>
     <DescriptionField :title="schema.description"/>
     <div v-for="(item, index) in itemlist" :key="index" class="array-item">
+      <!-- json 要传入引用地址，否则无法触发emit:update -->
       <SchemaField
-        :key="refresh"
         :schema="item.schema"
-        :json="item.json"
+        :json.sync="json[index]"
         :idSchema="item.idSchema"
         :required="item.required"
-        @onChange="handleChange"
       />
       <el-button
         type="text"
@@ -31,11 +30,6 @@ import DescriptionField from './DescriptionField.vue'
 
 export default {
   props: ["schema", "json", "idSchema"],
-  data() {
-    return {
-      refresh: (+new Date())
-    }
-  },
   components: {
     TitleField,
     SchemaField,
@@ -43,12 +37,11 @@ export default {
   },
   computed: {
     itemlist() {
-      return (Array.isArray(this.json) ? this.json : []).map((item, index) => {
+      return this.json.map((item, index) => {
         const itemSchema = this.schema.items
         const itemIdPrefix = this.idSchema.$id + "_" + index;
         const itemIdSchema = utils.toIdSchema(itemSchema, itemIdPrefix)
         return {
-          json: item,
           schema: itemSchema,
           idSchema: itemIdSchema,
           // string 类型array 默认必填 避免空的脏数据
@@ -60,19 +53,10 @@ export default {
   methods: {
     onAddClick() {
       let datainit = utils.computeDefaults(this.schema.items)
-      let array = Array.isArray(this.json) ? this.json : []
-      array.push(datainit)
-      this.$emit('onChange', array)
+      this.json.push(datainit)
     },
     onDelClick(index) {
       this.json.splice(index, 1)
-      this.$emit('onChange', this.json)
-      this.refresh = +new Date()
-    },
-    handleChange({ id, val}) {
-      const key = id.$id.replace(`${this.idSchema.$id}_`, '')
-      this.json[+key] = val
-      this.$emit('onChange', this.json)
     }
   }
 }

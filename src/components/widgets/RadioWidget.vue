@@ -2,14 +2,14 @@
   <FormItem
     ref="FormItem"
     :schema="schema"
-    :input="input"
+    :input="_value"
     :id="id"
     :errormsg="`请选择${schema.title}`"
     :required="required"
   >
     <el-radio
       v-for="(label, idx) in schema.enum"
-      v-model="input"
+      v-model="_value"
       :label="label"
       @change="handleChange"
       size="small"
@@ -19,24 +19,12 @@
 </template>
 
 <script>
-import FormItem from './FormItem.vue'
+import { weidget } from '../../utils/mixins.js'
 
 export default {
-  props: ['id', 'value', 'ui', 'schema', 'required'],
-  created() {
-    this.input = this.value
-  },
-  data() {
-    return {
-      input: ''
-    }
-  },
-  components: {
-    FormItem
-  },
+  mixins: [weidget],
   methods: {
     handleChange(val) {
-      this.$emit('onChange', val)
       this.$refs['FormItem'].handleChange(event)
     }
   }

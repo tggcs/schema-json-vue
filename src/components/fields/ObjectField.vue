@@ -5,10 +5,9 @@
     <div v-for="(item, key, index) in schema.properties" :key="index">
       <SchemaField
         :schema="item"
-        :json="(json || {})[key]"
+        :json.sync="(json || {})[key]"
         :idSchema="idSchema[key]"
         :required="schema.required && schema.required.indexOf(key)>-1"
-        @onChange="handleChange"
       />
     </div>
   </fieldset>
@@ -25,13 +24,6 @@ export default {
     TitleField,
     SchemaField,
     DescriptionField
-  },
-  methods: {
-    handleChange({ id, val}) {
-      const key = id.$id.replace(`${this.idSchema.$id}_`, '')
-      const newData = { ...this.json, [key]: val }
-      this.$emit('onChange', newData)
-    }
   }
 }
 </script>

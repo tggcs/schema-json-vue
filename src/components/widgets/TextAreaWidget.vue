@@ -1,11 +1,10 @@
 <template>
-  <FormItem ref="FormItem" :schema="schema" :input="input" :id="id" :required="required">
+  <FormItem ref="FormItem" :schema="schema" :input="_value" :id="id" :required="required">
     <el-input
-      v-model="input"
+      v-model="_value"
       type="textarea"
       :rows="2"
       size="small"
-      @change="handleChange"
       @blur="handleBlur"
       :placeholder="`请输入${schema.title}`"
     />
@@ -13,25 +12,11 @@
 </template>
 
 <script>
-import FormItem from './FormItem.vue'
+import { weidget } from '../../utils/mixins.js'
 
 export default {
-  props: ['id', 'value', 'ui', 'schema', 'required'],
-  created() {
-    this.input = this.value
-  },
-  data() {
-    return {
-      input: ''
-    }
-  },
-  components: {
-    FormItem
-  },
+  mixins: [weidget],
   methods: {
-    handleChange(val) {
-      this.$emit('onChange', val)
-    },
     handleBlur(event) {
       this.$refs['FormItem'].handleBlur(event)
     }

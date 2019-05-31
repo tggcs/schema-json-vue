@@ -1,5 +1,5 @@
 <template>
-  <SchemaField :json="json" :schema="schema" :idSchema="idSchema" @onChange="handleChange"/>
+  <SchemaField :json="json" :schema="schema" :idSchema="idSchema"/>
 </template>
 
 <script>
@@ -18,11 +18,6 @@ export default {
   },
   components: {
     SchemaField
-  },
-  methods: {
-    handleChange({ id, val}) {
-      this.$emit('onChange', val)
-    }
   }
-};
+}
 </script>

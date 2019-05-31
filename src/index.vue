@@ -1,6 +1,6 @@
 <template>
   <el-form label-width="130px" size="small" class="vue-jsonschema">
-    <MainRoot :key="refresh" :schema="schema" :json="jsonValue" @onChange="handleChange"/>
+    <MainRoot :schema="schema" :json="jsonschema"/>
   </el-form>
 </template>
 
@@ -16,39 +16,39 @@ export default {
   },
   data() {
     return {
-      jsonValue: {},
-      // 重新渲染组件
-      refresh: (+new Date())
+      jsonschema: {}
     }
   },
   watch: {
     json(nval) {
       this.initData()
-      this.refresh = +new Date()
     },
     schema(nval) {
       this.initData()
+    },
+    jsonschema(nval) {
+      this.$emit('onJsonChange', nval)
     }
   },
   components: {
     MainRoot
   },
   methods: {
-    handleChange(val) {
-      this.$emit('onJsonChange', val)
-      if (Array.isArray(val)) {
-        this.jsonValue = JSON.parse(JSON.stringify(val) )
-      } else {
-        this.jsonValue = val
-      }
-    },
+    // handleChange(val) {
+    //   this.$emit('onJsonChange', val)
+    //   if (Array.isArray(val)) {
+    //     this.jsonschema = JSON.parse(JSON.stringify(val) )
+    //   } else {
+    //     this.jsonschema = val
+    //   }
+    // },
     validate(cb) {
       utils.eventbus.$emit('AiVueSchema', 'HandleSchemaValidate', {})
       cb(utils.errors)
     },
     initData() {
-      this.jsonValue = utils.getDefaultFormState(this.schema, this.json)
-      this.$emit('onJsonChange', this.jsonValue)
+      this.jsonschema = utils.getDefaultFormState(this.schema, this.json)
+      this.$emit('onJsonChange', this.jsonschema)
     }
   }
 };

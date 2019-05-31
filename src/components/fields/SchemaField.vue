@@ -1,11 +1,10 @@
 <template>
   <component
-    :json="json"
+    :json.sync="_json"
     :schema="schema"
     :idSchema="idSchema"
     :required="required"
     :is="filedComponent"
-    @onChange="handleChange"
   />
 </template>
 
@@ -34,14 +33,14 @@ export default {
     filedComponent() {
       const componentName = COMPONENT_TYPES[this.schema.type]
       return this.registry.fields[componentName]
-    }
-  },
-  methods: {
-    handleChange(val) {
-      this.$emit('onChange', {
-        id: this.idSchema,
-        val: val
-      })
+    },
+    _json: {
+      get() {
+        return this.json
+      },
+      set(nval) {
+        this.$emit('update:json', nval)
+      }
     }
   }
 }
