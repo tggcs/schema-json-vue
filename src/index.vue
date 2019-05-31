@@ -27,7 +27,7 @@ export default {
       this.initData()
     },
     jsonschema: {
-      handler: (nval) => {
+      handler(nval) {
         this.$emit('onJsonChange', nval)
       },
       deep: true
@@ -37,14 +37,6 @@ export default {
     MainRoot
   },
   methods: {
-    // handleChange(val) {
-    //   this.$emit('onJsonChange', val)
-    //   if (Array.isArray(val)) {
-    //     this.jsonschema = JSON.parse(JSON.stringify(val) )
-    //   } else {
-    //     this.jsonschema = val
-    //   }
-    // },
     validate(cb) {
       utils.eventbus.$emit('AiVueSchema', 'HandleSchemaValidate', {})
       cb(utils.errors)
