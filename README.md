@@ -144,19 +144,6 @@ methods: {
 |------------- |---------------- |---------------- |
 | onDataChange | change事件       | 返回当前表单填写的数据   |
 
-<!-- ### 实现
-```
-├─ components
-|  ├─ fields    schema属性类型集合
-|  ├─ widgets   插件集合
-│  └─ index.vue 组件入口
-├─ utils
-│  ├─ common.js 公共方法
-│  ├─ registry.js 插件方法
-│  └─ schema.js schema方法
-└─ index.vue 入口
-``` -->
-
-## 爆炸的设计图
-
-<img src="./WechatIMG3.jpeg"/>
+### todo
+1.循环引用
+2.v1.2.0

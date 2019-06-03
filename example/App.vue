@@ -109,7 +109,7 @@ export default {
           } else {
             this.$message({
               message: "填写有误",
-              type: "success"
+              type: "warning"
             });
           }
         } else {

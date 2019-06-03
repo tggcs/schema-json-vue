@@ -1,5 +1,5 @@
 <template>
-  <el-form-item :label="schema.title+':'" :class="{'is-required': required}">
+  <el-form-item :label="schema.title+':'" :class="{'is-required': required, 'is-error': error.show}">
     <el-alert
       :title="schema.description"
       v-if="schema.description"

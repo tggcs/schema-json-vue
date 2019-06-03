@@ -48,6 +48,9 @@ export function computeDefaults(schema) {
     case "integer":
       return schema.default || 0
     case "string":
+      if (schema.enum && schema.enum.length && !schema.default) {
+        schema.default = schema.enum[0]
+      }
       return schema.default || ""
     default:
       warn('schema type error => schema:', schema)
