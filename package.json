@@ -1,10 +1,11 @@
 {
   "name": "schema-json-vue",
-  "version": "1.0.13",
-  "main": "./dist/schema-json-vue.common.js",
+  "version": "1.0.15",
+  "main": "./lib/schema-json-vue.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name schema-json-vue src/index.js",
+    "build": "vue-cli-service build --target lib --dest lib --name schema-json-vue src/index.js",
+    "build:demo": "vue-cli-service build --target app --dest dist --name schema-json-vue-demo example/main.js",
     "lint": "vue-cli-service lint"
   },
   "repository": {
