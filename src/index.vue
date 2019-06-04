@@ -29,6 +29,9 @@ export default {
     jsonschema: {
       handler(nval) {
         this.$emit('onJsonChange', nval)
+        let configerror = []
+        utils.checkJsonSchema(this.schema, nval, configerror)
+        this.$emit('onJsonSchemaError', configerror)
       },
       deep: true
     }

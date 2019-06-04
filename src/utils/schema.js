@@ -1,4 +1,5 @@
-import { isObject, warn } from './common'
+import { isObject, isDef, warn } from './common'
+import { isBoolean } from 'util';
 
 export function toIdSchema(schema, id = 'root') {
   const idSchema = {
@@ -30,6 +31,48 @@ export function getDefaultFormState(schema, formData) {
       return mergeObjects(defaults, formData)
     case "array":
       return formData
+  }
+}
+
+export function checkJsonSchema(schema, formData, errors, key) {
+  switch (schema.type) {
+    case "object":
+      Object.keys(formData).map(key => {
+        if (!schema.properties[key]) {
+          errors.push(['warning', `多余字段：${key}`])
+        }
+      })
+      Object.keys(schema.properties).map(key => {
+        if (isDef(formData[key])) {
+          checkJsonSchema(schema.properties[key], formData[key], errors, key)
+        }
+      })
+      break
+    case "array":
+      formData.map(item => {
+        checkJsonSchema(schema.items, item, errors, key)
+      })
+      break
+    case "boolean":
+      if (!(typeof formData == "boolean")) {
+        errors.push(['error', `值类型错误[boolean]：${key}`])
+      }
+      break
+    case "integer":
+      if (!(typeof formData == "number")) {
+        errors.push(['error', `值类型错误[integer]：${key}`])
+      }
+      break
+    case "string":
+      if (!(typeof formData == "string")) {
+        errors.push(['error', `值类型错误[string]：${key}`])
+      } else if (schema.enum) {
+        schema.enum.indexOf(formData) == -1 && errors.push(['error', `枚举值错误[enum]：${key}`])
+      }
+      break
+    default:
+      errors.push(['error', `值类型错误[未知类型]：${schema.type} ${key}`])
+      break
   }
 }
 

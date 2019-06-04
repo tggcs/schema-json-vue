@@ -2,6 +2,10 @@ export function isObject(thing) {
   return typeof thing === "object" && thing !== null && !Array.isArray(thing)
 }
 
+export function isDef (thing) {
+  return thing !== undefined && thing !== null
+}
+
 // eventbus factory
 export const eventbus = (() => {
   const _bus = {}

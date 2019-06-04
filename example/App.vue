@@ -15,10 +15,12 @@
               ref="AiJsonSchema"
               :schema="schema"
               :json="json"
-              @onJsonChange="handleChange"/>
+              @onJsonChange="handleChange"
+              @onJsonSchemaError="handleJsonSchemaError"/>
           </el-tab-pane>
           <el-tab-pane label="JSON">
-            <el-input type="textarea" :autosize="{ minRows: 12, maxRows: 30 }" placeholder="请输入Json内容" v-model="jsonResultEdit"></el-input>
+            <el-alert v-for="(item, index) in errs" :key="index" :type="item[0]" :title="item[1]" :closable="false" :show-icon="true" class="error-tip"></el-alert>
+            <el-input :class="{'errorinput': isEditIngContent}" type="textarea" :autosize="{ minRows: 12, maxRows: 30 }" placeholder="请输入Json内容" v-model="jsonResultEdit"></el-input>
           </el-tab-pane>
         </el-tabs>
         <el-button type="primary" @click="checkdata" size="small" class="get-data">校验表单</el-button>
@@ -83,7 +85,9 @@ export default {
       json: {},
       jsonResult: {},
       sampleIdx: "",
-      errorInput: false
+      errorInput: false,
+      isEditIngContent: false,
+      errs: []
     };
   },
   watch: {
@@ -103,14 +107,22 @@ export default {
   computed: {
     jsonResultEdit: {
       get() {
-        return JSON.stringify(this.jsonResult, null, 2)
+        return this.isEditIngContent || JSON.stringify(this.jsonResult, null, 2)
       },
       set(nval) {
-        this.json = JSON.parse(nval)
+        try {
+          this.json = JSON.parse(nval)
+          this.isEditIngContent = false
+        } catch (err) {
+          this.isEditIngContent = nval
+        }
       }
     }
   },
   methods: {
+    handleJsonSchemaError(errs) {
+      this.errs = errs
+    },
     handleChange(val) {
       if (Array.isArray(val)) {
         this.jsonResult = JSON.parse(JSON.stringify(val));
@@ -174,5 +186,13 @@ pre {
 .errorinput .el-textarea__inner ,
 .errorinput .el-textarea__inner:focus {
   border: 2px solid red;
+}
+.error-tip {
+  margin-bottom: 2px;
+  padding: 4px 16px;
+}
+.el-alert__title {
+  font-size: 12px;
+
 }
 </style>
