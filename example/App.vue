@@ -9,20 +9,36 @@
         <el-radio v-model="sampleIdx" label="TTS_SCHEMA">sample 4</el-radio>
       </div>
       <div class="box">
-        <AiJsonSchema
-          ref="AiJsonSchema"
-          :schema="schema"
-          :json="json"
-          @onJsonChange="handleChange"/>
+        <el-tabs type="border-card">
+          <el-tab-pane label="可视化">
+            <AiJsonSchema
+              ref="AiJsonSchema"
+              :schema="schema"
+              :json="json"
+              @onJsonChange="handleChange"/>
+          </el-tab-pane>
+          <el-tab-pane label="JSON">
+            <el-input type="textarea" :autosize="{ minRows: 12, maxRows: 30 }" placeholder="请输入Json内容" v-model="jsonResultEdit"></el-input>
+          </el-tab-pane>
+        </el-tabs>
         <el-button type="primary" @click="checkdata" size="small" class="get-data">校验表单</el-button>
       </div>
       <div class="box">
-        <p>数据结果</p>
-        <pretty :value="jsonResult"></pretty>
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>数据结果</span>
+          </div>
+          <pretty :value="jsonResult"></pretty>
+        </el-card>
       </div>
       <div style="clear:both;"></div>
     </div>
-    <el-input :class="{'errorinput': errorInput}" type="textarea" :rows="50" placeholder="请输入Json内容" v-model="schemaInput"></el-input>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <span>JSONSCHEMA</span>
+      </div>
+      <el-input :class="{'errorinput': errorInput}" type="textarea" :rows="50" placeholder="请输入Json内容" v-model="schemaInput"></el-input>
+    </el-card>
   </div>
 </template>
 
@@ -82,6 +98,16 @@ export default {
     sampleIdx(nval) {
       this.json = {};
       this.schemaInput = JSON.stringify(this.samples[this.sampleIdx], null, 2);
+    }
+  },
+  computed: {
+    jsonResultEdit: {
+      get() {
+        return JSON.stringify(this.jsonResult, null, 2)
+      },
+      set(nval) {
+        this.json = JSON.parse(nval)
+      }
     }
   },
   methods: {

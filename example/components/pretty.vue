@@ -42,12 +42,6 @@ export default {
 </script>
 
 <style lang="scss">
-pre {
-  outline: 1px solid #ccc;
-  padding: 5px;
-  margin: 5px;
-}
-
 .string {
   color: #e91e63;
 }
