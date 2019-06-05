@@ -10,6 +10,7 @@
       </div>
       <div class="box">
         <el-tabs type="border-card">
+          <el-alert v-for="(item, index) in errs" :key="index" :type="item[0]" :title="item[1]" :closable="false" :show-icon="true" class="error-tip"></el-alert>
           <el-tab-pane label="可视化">
             <AiJsonSchema
               ref="AiJsonSchema"
@@ -19,7 +20,6 @@
               @onJsonSchemaError="handleJsonSchemaError"/>
           </el-tab-pane>
           <el-tab-pane label="JSON">
-            <el-alert v-for="(item, index) in errs" :key="index" :type="item[0]" :title="item[1]" :closable="false" :show-icon="true" class="error-tip"></el-alert>
             <el-input :class="{'errorinput': isEditIngContent}" type="textarea" :autosize="{ minRows: 12, maxRows: 30 }" placeholder="请输入Json内容" v-model="jsonResultEdit"></el-input>
           </el-tab-pane>
         </el-tabs>

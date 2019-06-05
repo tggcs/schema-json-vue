@@ -54,7 +54,7 @@
     "not ie <= 8"
   ],
   "files": [
-    "dist/*.*"
+    "lib/*.*"
   ],
   "homepage": "https://tggcs.github.io/projects/schema-json-vue/index.html",
   "keywords": [
