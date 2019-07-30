@@ -52,5 +52,8 @@ fieldset.noborder {
   border: none;
   padding-left: 0;
   padding-top: 0;
+  fieldset {
+    border: none;
+  }
 }
 </style>

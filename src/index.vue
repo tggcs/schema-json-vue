@@ -67,6 +67,9 @@ export default {
 .vue-jsonschema {
   .el-alert--info {
     padding: 0 10px;
+    margin-left: 130px;
+    height: 30px;
+    width: initial;
   }
   .el-form-item {
     position: relative;

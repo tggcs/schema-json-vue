@@ -99,6 +99,9 @@ fieldset.noborder {
       padding-left: 0px;
     }
   }
+  fieldset {
+    border: none;
+  }
 }
 
 .array {
