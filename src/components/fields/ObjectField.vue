@@ -1,10 +1,10 @@
 <template>
-  <fieldset>
-    <TitleField :title="schema.title"/>
-    <DescriptionField :description="schema.description"/>
+  <fieldset :class="{'noborder': !showTitle}">
+    <TitleField :title="schema.title" v-if="showTitle"/>
+    <DescriptionField :description="schema.description" v-if="schema.description"/>
     <div v-for="(item, key, index) in schema.properties" :key="index">
       <SchemaField
-        kind="fields"
+        :kind="kind"
         :schema="item"
         :json.sync="(json || {})[key]"
         :idSchema="idSchema[key]"
@@ -20,11 +20,20 @@ import SchemaField from '../SchemaField.vue'
 import DescriptionField from './DescriptionField.vue'
 
 export default {
-  props: ["schema", "json", "idSchema"],
+  props: ["kind", "schema", "json", "idSchema"],
   components: {
     TitleField,
     SchemaField,
     DescriptionField
+  },
+  computed: {
+    showTitle() {
+      if (this.kind == 'treeItem' && this.idSchema.$id == 'root') {
+        return false
+      } else {
+        return true
+      }
+    }
   }
 }
 </script>
@@ -37,5 +46,12 @@ fieldset {
   border-radius: 8px;
   border: 1px dashed #2196fe;
   text-align: left;
+}
+
+fieldset.noborder {
+  border: none;
+  margin-left: 0;
+  padding-left: 0;
+  padding-top: 0;
 }
 </style>

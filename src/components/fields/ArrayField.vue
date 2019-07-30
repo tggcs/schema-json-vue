@@ -1,16 +1,23 @@
 <template>
-  <fieldset>
-    <TitleField :title="schema.title"/>
+  <fieldset :class="{'noborder': !showTitle, 'intree': kind == 'treeItem'}">
+    <TitleField :title="schema.title" v-if="showTitle"/>
     <DescriptionField :title="schema.description"/>
     <div v-for="(item, index) in itemlist" :key="index" class="array-item">
-      <!-- json 要传入引用地址，否则无法触发emit:update -->
-      <SchemaField
-        kind="fields"
-        :schema="item.schema"
-        :json.sync="json[index]"
-        :idSchema="item.idSchema"
-        :required="item.required"
-      />
+      <template v-if="kind == 'treeItem'">
+        <div class="treeItem">
+          {{item.schema.title || '无标题'}} (Object)
+        </div>
+      </template>
+      <template v-else>
+        <!-- json 要传入引用地址，否则无法触发emit:update -->
+        <SchemaField
+          :kind="kind"
+          :schema="item.schema"
+          :json.sync="json[index]"
+          :idSchema="item.idSchema"
+          :required="item.required"
+        />
+      </template>
       <el-button
         type="text"
         icon="el-icon-delete"
@@ -19,7 +26,7 @@
         class="array-del"
       ></el-button>
     </div>
-    <el-button type="primary" @click="onAddClick" size="small" class="array-add">添加</el-button>
+    <el-button type="primary" plain @click="onAddClick" class="array-add" icon="el-icon-plus">添加</el-button>
   </fieldset>
 </template>
 
@@ -30,7 +37,7 @@ import SchemaField from '../SchemaField.vue'
 import DescriptionField from './DescriptionField.vue'
 
 export default {
-  props: ["schema", "json", "idSchema"],
+  props: ["kind", "schema", "json", "idSchema"],
   components: {
     TitleField,
     SchemaField,
@@ -49,6 +56,13 @@ export default {
           required: itemSchema.type == 'string'
         }
       })
+    },
+    showTitle() {
+      if (this.kind == 'treeItem' && this.idSchema.$id == 'root') {
+        return false
+      } else {
+        return true
+      }
     }
   },
   methods: {
@@ -73,18 +87,37 @@ fieldset {
   text-align: left;
 }
 
+fieldset.noborder {
+  border: none;
+  > .array-item {
+    > .treeItem {
+      padding-left: 0px;
+    }
+  }
+}
+
 .array {
   &-add {
     width: 100%;
+    background: transparent;
   }
   &-item {
     display: flex;
-      .el-form-item{
-        flex: auto;
-      }
-      fieldset {
-        flex: auto;
-      }
+    .el-form-item{
+      flex: auto;
+    }
+    fieldset {
+      flex: auto;
+    }
+    .treeItem {
+      height: 34px;
+      margin-bottom: 22px;
+      line-height: 34px;
+      width: 100%;
+      padding-left: 50px;
+      cursor: initial;
+      font-size: 14px;
+    }
   }
   &-del {
     margin-bottom: 22px;
@@ -92,6 +125,14 @@ fieldset {
   }
   &-del:hover {
     background-color: #ebf6ff;
+  }
+}
+
+.intree {
+  .array-add {
+    width: initial;
+    margin: 0 auto;
+    display: block;
   }
 }
 </style>

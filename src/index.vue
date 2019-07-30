@@ -65,17 +65,8 @@ export default {
 
 <style lang="scss">
 .vue-jsonschema {
-  .el-form-item__label {
-    font-size: 12px;
-  }
   .el-alert--info {
     padding: 0 10px;
-    .el-alert__title {
-      font-size: 12px;
-    }
-  }
-  .el-radio__label {
-    font-size: 12px;
   }
 }
 .triangle {

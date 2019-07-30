@@ -36,6 +36,7 @@ export default {
   height: 32px;
   padding-left: 15px;
   position: relative;
+  font-weight: 600; 
   .radio {
     width: 6px;
     height: 6px;

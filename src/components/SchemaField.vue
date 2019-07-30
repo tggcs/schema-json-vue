@@ -1,6 +1,7 @@
 <template>
   <div class="schema" @click.stop="chose">
     <component
+      :kind="kind"
       :json.sync="_json"
       :schema="schema"
       :idSchema="idSchema"
@@ -42,8 +43,9 @@ export default {
   },
   computed: {
     filedComponent() {
-      const componentName = COMPONENT_TYPES[this.kind][this.schema.type]
-      return this.registry[this.kind][componentName]
+      let _kind = this.kind == 'tree' ? 'tree' : 'fields'
+      const componentName = COMPONENT_TYPES[_kind][this.schema.type]
+      return this.registry[_kind][componentName]
     },
     _json: {
       get() {

@@ -93,6 +93,7 @@ fieldset {
   line-height: 32px;
   padding-left: 20px;
   position: relative;
+  font-weight: 600;
   .triangle {
     margin-top: 5px;
   }

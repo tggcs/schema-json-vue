@@ -9,6 +9,7 @@
     </div>
     <div class="collspan-form">
       <jsonschema
+        kind="treeItem"
         ref="AiJsonSchema"
         :schema="collspanSchema"
         :json="collspanJson"
@@ -97,6 +98,7 @@ export default {
   display: flex;
   &-tree {
     width: 30%;
+    border-right: 1px solid #e4e7ed;
   }
   &-form {
     width: 70%;
