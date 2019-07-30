@@ -46,9 +46,9 @@ export default {
     };
   },
   methods: {
-    initData() {
+    initData(cb) {
       this.$nextTick(() => {
-        // 模拟第一次点击
+        // 模拟第一次点击 初始数据
         utils.eventbus.$emit('AiVueSchema', 'HandleNodeChose', {
           json: this.json,
           schema: this.schema,
@@ -56,6 +56,8 @@ export default {
             $id: 'root'
           }
         })
+        window.schema_data_current_chosed_id = 'root'
+        cb && cb()
       })
     },
     handleChose({schema, json, idSchema}) {
@@ -86,10 +88,11 @@ export default {
       }
     },
     validate(cb) {
-      this.initData()
-      this.$nextTick(() => {
-        this.$refs['AiJsonSchema'].validate(valid => {
-          cb(valid)
+      this.initData(() => {
+        this.$nextTick(() => {
+          this.$refs['AiJsonSchema'].validate(valid => {
+            cb(valid)
+          })
         })
       })
     }

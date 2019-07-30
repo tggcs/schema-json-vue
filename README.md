@@ -152,3 +152,7 @@ methods: {
 1.collspan
 
 https://css-tricks.com/using-css-transitions-auto-dimensions/
+
+### todo
+
+1.校验
