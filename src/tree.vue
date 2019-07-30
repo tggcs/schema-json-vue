@@ -20,6 +20,7 @@
 
 <script>
 import { set } from 'lodash'
+import utils from './utils'
 import jsonschema from './index.vue'
 
 export default {
@@ -46,12 +47,15 @@ export default {
   },
   methods: {
     initData() {
-      this.handleChose({
-        schema: this.schema,
-        json: this.json,
-        idSchema: {
-          $id: 'root'
-        }
+      this.$nextTick(() => {
+        // 模拟第一次点击
+        utils.eventbus.$emit('AiVueSchema', 'HandleNodeChose', {
+          json: this.json,
+          schema: this.schema,
+          idSchema: {
+            $id: 'root'
+          }
+        })
       })
     },
     handleChose({schema, json, idSchema}) {

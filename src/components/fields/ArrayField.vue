@@ -4,7 +4,7 @@
     <DescriptionField :title="schema.description"/>
     <div v-for="(item, index) in itemlist" :key="index" class="array-item">
       <template v-if="kind == 'treeItem'">
-        <div class="treeItem">
+        <div class="treeItem" @click="onChoseObject(index)">
           {{item.schema.title || '无标题'}} (Object)
         </div>
       </template>
@@ -72,6 +72,9 @@ export default {
     },
     onDelClick(index) {
       this.json.splice(index, 1)
+    },
+    onChoseObject(index) {
+      utils.eventbus.$emit('AiVueSchema', 'HandleTreeItemChose', this.idSchema.$id+'_'+index)
     }
   }
 }
@@ -111,12 +114,14 @@ fieldset.noborder {
     }
     .treeItem {
       height: 34px;
-      margin-bottom: 22px;
+      margin-bottom: 5px;
       line-height: 34px;
       width: 100%;
       padding-left: 50px;
-      cursor: initial;
       font-size: 14px;
+    }
+    .treeItem:hover {
+      background-color: #ebf6ff;
     }
   }
   &-del {
@@ -133,6 +138,9 @@ fieldset.noborder {
     width: initial;
     margin: 0 auto;
     display: block;
+  }
+  .array-del {
+    margin-bottom: 5px;
   }
 }
 </style>

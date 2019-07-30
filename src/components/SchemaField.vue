@@ -35,6 +35,11 @@ export default {
   props: ["kind", "schema", "json", "idSchema", "required"],
   created() {
     this.registry = utils.getDefaultRegistry()
+    utils.eventbus.$on('AiVueSchema', 'HandleTreeItemChose', (nodeid) => {
+      if (window.schema_data_current_chosed_id + nodeid.replace('root', '') == this.idSchema.$id) {
+        this.chose()
+      }
+    })
   },
   data() {
     return {
@@ -64,6 +69,7 @@ export default {
           schema: this.schema,
           idSchema: this.idSchema
         })
+        window.schema_data_current_chosed_id = this.idSchema.$id
       }
     }
   }
