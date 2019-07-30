@@ -13,6 +13,7 @@
 import { weidget } from '../../utils/mixins.js'
 
 export default {
+  name: 'TextWidget',
   mixins: [weidget],
   methods: {
     handleBlur(event) {

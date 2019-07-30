@@ -15,6 +15,7 @@
 import { weidget } from '../../utils/mixins.js'
 
 export default {
+  name: 'TextAreaWidget',
   mixins: [weidget],
   methods: {
     handleBlur(event) {

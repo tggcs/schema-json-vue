@@ -3,29 +3,39 @@
     <readme/>
     <div>
       <div style="margin:40px 0 10px;">
-        <el-radio v-model="sampleIdx" label="classdata">sample 1</el-radio>
-        <el-radio v-model="sampleIdx" label="DSKDM_SCHEMA">sample 2</el-radio>
-        <el-radio v-model="sampleIdx" label="TEST_SCHEMA">sample 3</el-radio>
-        <el-radio v-model="sampleIdx" label="TTS_SCHEMA">sample 4</el-radio>
+        <el-radio v-model="sampleIdx" label="classdata">data 1</el-radio>
+        <el-radio v-model="sampleIdx" label="DSKDM_SCHEMA">data 2</el-radio>
+        <el-radio v-model="sampleIdx" label="TEST_SCHEMA">data 3</el-radio>
+        <el-radio v-model="sampleIdx" label="TTS_SCHEMA">data 4</el-radio>
       </div>
-      <div class="box">
-        <el-tabs type="border-card">
+      <div class="box" style="width:70%">
+        <el-tabs type="border-card" v-model="activeName">
           <el-alert v-for="(item, index) in errs" :key="index" :type="item[0]" :title="item[1]" :closable="false" :show-icon="true" class="error-tip"></el-alert>
-          <el-tab-pane label="可视化">
+          <el-tab-pane label="可视化" name="sample1">
             <AiJsonSchema
+              v-if="activeName == 'sample1'"
               ref="AiJsonSchema"
               :schema="schema"
               :json="json"
               @onJsonChange="handleChange"
               @onJsonSchemaError="handleJsonSchemaError"/>
           </el-tab-pane>
-          <el-tab-pane label="JSON">
-            <el-input :class="{'errorinput': isEditIngContent}" type="textarea" :autosize="{ minRows: 12, maxRows: 30 }" placeholder="请输入Json内容" v-model="jsonResultEdit"></el-input>
+          <el-tab-pane label="可视化-折叠" name="sample2">
+            <AiJsonSchemaTree 
+              v-if="activeName == 'sample2'"
+              ref="AiJsonSchema"
+              :schema="schema"
+              :json.sync="json"
+              @onJsonChange="handleChange"
+              @onJsonSchemaError="handleJsonSchemaError"/>
+          </el-tab-pane>
+          <el-tab-pane label="JSON" name="sample3">
+            <el-input v-if="activeName == 'sample3'" :class="{'errorinput': isEditIngContent}" type="textarea" :autosize="{ minRows: 12, maxRows: 30 }" placeholder="请输入Json内容" v-model="jsonResultEdit"></el-input>
           </el-tab-pane>
         </el-tabs>
         <el-button type="primary" @click="checkdata" size="small" class="get-data">校验表单</el-button>
       </div>
-      <div class="box">
+      <div class="box" style="width:30%">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>数据结果</span>
@@ -46,6 +56,7 @@
 
 <script>
 import AiJsonSchema from "../src/index.vue";
+import AiJsonSchemaTree from "../src/tree.vue";
 import readme from "./components/readme.vue";
 import pretty from "./components/pretty.vue";
 import formData from "./data/formData.json";
@@ -63,6 +74,7 @@ export default {
   name: "app",
   components: {
     AiJsonSchema,
+    AiJsonSchemaTree,
     readme,
     pretty
   },
@@ -80,6 +92,7 @@ export default {
   },
   data() {
     return {
+      activeName: "sample1",
       schema: {},
       schemaInput: "",
       json: {},
@@ -127,7 +140,7 @@ export default {
       if (Array.isArray(val)) {
         this.jsonResult = JSON.parse(JSON.stringify(val));
       } else {
-        this.jsonResult = val;
+        this.jsonResult = val
       }
     },
     checkdata() {
@@ -143,26 +156,26 @@ export default {
             this.$message({
               message: "填写正确",
               type: "success"
-            });
+            })
           } else {
             this.$message({
               message: "填写有误",
               type: "warning"
-            });
+            })
           }
         } else {
           this.$message({
             message: "有" + checks.length + "个值需要填写",
             type: "warning"
-          });
+          })
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
-<style>
+<style lang="scss" scoped>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -172,7 +185,6 @@ export default {
   margin-top: 60px;
 }
 .box {
-  width: 50%;
   float: left;
   padding: 10px;
   box-sizing: border-box;
@@ -193,6 +205,5 @@ pre {
 }
 .el-alert__title {
   font-size: 12px;
-
 }
 </style>

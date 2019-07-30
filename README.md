@@ -11,6 +11,8 @@
 
 支持了一种属性：必填[required]
 
+支持了树菜单的形式
+
 
 ## 调用
 ```shell
@@ -23,7 +25,7 @@ main.js
 import Vue from 'vue'
 import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui';
-import 'schema-json-vue/dist/schema-json-vue.css';
+import 'schema-json-vue/lib/schema-json-vue.css';
 import SchemaJsonVue from 'schema-json-vue'
 
 Vue.use(ElementUI)
@@ -137,13 +139,16 @@ methods: {
 | 参数          | 说明            | 类型            | 可选值                 | 默认值   |
 |------------- |---------------- |---------------- |---------------------- |-------- |
 | schema       | schema结构       | Object         |          {}           |    —    |
-| formData     | 初始数据          | Object         |         {}             |     —    |
+| json     | 初始数据          | Object         |         {}             |     —    |
 
 ### Events
 | 参数          | 说明            | 回调参数           |
 |------------- |---------------- |---------------- |
-| onDataChange | change事件       | 返回当前表单填写的数据   |
+| onJsonChange | change事件       | 返回当前表单填写的数据   |
 
-### todo
-1.循环引用
-2.v1.2.0
+
+### 资料
+
+1.collspan
+
+https://css-tricks.com/using-css-transitions-auto-dimensions/

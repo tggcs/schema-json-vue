@@ -8,6 +8,7 @@
 import { weidget } from '../../utils/mixins.js'
 
 export default {
+  name: 'StepWidget',
   mixins: [weidget]
 }
 </script>

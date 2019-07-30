@@ -1,19 +1,24 @@
 <template>
-  <SchemaField :json="json" :schema="schema" :idSchema="idSchema"/>
+  <SchemaField :kind="kind" :json.sync="_json" :schema="schema" :idSchema="idSchema"/>
 </template>
 
 <script>
 import utils from '../utils'
-import SchemaField from './fields/SchemaField.vue'
+import SchemaField from './SchemaField.vue'
 
 export default {
-  props: ["schema", "json"],
-  created() {
-    utils.eventbus.init('AiVueSchema', this)
-  },
+  props: ["kind", "schema", "json"],
   computed: {
     idSchema() {
       return utils.toIdSchema(this.schema)
+    },
+    _json: {
+      get() {
+        return this.json
+      },
+      set(nval) {
+        this.$emit('update:json', nval)
+      }
     }
   },
   components: {

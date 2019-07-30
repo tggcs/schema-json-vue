@@ -1,3 +1,4 @@
+import tree from '../components/tree'
 import fields from '../components/fields'
 import widgets from '../components/widgets'
 
@@ -21,7 +22,8 @@ const widgetMap = {
 export function getDefaultRegistry() {
   return {
     fields: fields,
-    widgets: widgets
+    widgets: widgets,
+    tree: tree
   }
 }
 

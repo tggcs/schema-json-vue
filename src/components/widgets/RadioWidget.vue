@@ -22,6 +22,7 @@
 import { weidget } from '../../utils/mixins.js'
 
 export default {
+  name: 'RadioWidget',
   mixins: [weidget],
   methods: {
     handleChange(val) {

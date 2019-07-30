@@ -17,6 +17,7 @@
 import utils from '../../utils'
 
 export default {
+  name: 'FormItem',
   props: ['schema', 'input', 'id', 'errormsg', 'required'],
   created() {
     if (this.errormsg) {

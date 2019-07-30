@@ -68,9 +68,10 @@
       ]
     },
     "students": {
-      "title": "学员",
+      "title": "学员列表",
       "type": "array",
       "items": {
+        "title": "学员信息",
         "type": "object",
         "required": [
           "name",

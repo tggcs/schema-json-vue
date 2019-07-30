@@ -13,15 +13,10 @@ import utils from "../../utils";
 
 export default {
   props: ["schema", "json", "idSchema", "required"],
-  created() {
-    this.widget = utils.getWidget(this.schema);
-  },
-  data() {
-    return {
-      widget: {}
-    };
-  },
   computed: {
+    widget() {
+      return utils.getWidget(this.schema);
+    },
     _json: {
       get() {
         return this.json

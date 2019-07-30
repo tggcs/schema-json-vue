@@ -4,6 +4,7 @@
     <DescriptionField :description="schema.description"/>
     <div v-for="(item, key, index) in schema.properties" :key="index">
       <SchemaField
+        kind="fields"
         :schema="item"
         :json.sync="(json || {})[key]"
         :idSchema="idSchema[key]"
@@ -15,7 +16,7 @@
 
 <script>
 import TitleField from './TitleField.vue'
-import SchemaField from './SchemaField.vue'
+import SchemaField from '../SchemaField.vue'
 import DescriptionField from './DescriptionField.vue'
 
 export default {

@@ -11,7 +11,7 @@ export const eventbus = (() => {
   const _bus = {}
   return {
     init: (bus, vm) => {
-      _bus[bus] = vm
+      !_bus[bus] && (_bus[bus] = vm)
     },
     $on: (bus, key, fun) => {
       _bus[bus].$on(key, fun)

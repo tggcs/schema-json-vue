@@ -1,6 +1,6 @@
 <template>
   <el-form label-width="130px" size="small" class="vue-jsonschema">
-    <MainRoot :schema="schema" :json="jsonschema"/>
+    <MainRoot :kind="kind" :schema="schema" :json.sync="jsonschema"/>
   </el-form>
 </template>
 
@@ -10,9 +10,20 @@ import MainRoot from './components/index.vue'
 
 export default {
   name: 'SchemaJsonVue',
-  props: ["schema", "json"],
+  props: {
+    kind: {
+      type: String,
+      default: "fields"
+    },
+    schema: [String, Number, Boolean, Array, Object],
+    json: [String, Number, Boolean, Array, Object]
+  },
   created() {
     this.initData()
+    utils.eventbus.init('AiVueSchema', this)
+    utils.eventbus.$on('AiVueSchema', 'HandleNodeChose', (data) => {
+      this.$emit('onChose', data)
+    })
   },
   data() {
     return {
@@ -66,5 +77,15 @@ export default {
   .el-radio__label {
     font-size: 12px;
   }
+}
+.triangle {
+  display: inline-block;
+  border-top: 6px solid transparent;
+  border-left: 11px solid #C0C4CC;
+  border-bottom: 6px solid transparent;
+  transition: transform .4s ease-in-out;
+}
+.triangle.open {
+  transform: rotate(90deg);
 }
 </style>

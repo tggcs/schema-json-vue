@@ -31,6 +31,8 @@ export function getDefaultFormState(schema, formData) {
       return mergeObjects(defaults, formData)
     case "array":
       return formData
+    default:
+      return formData
   }
 }
 

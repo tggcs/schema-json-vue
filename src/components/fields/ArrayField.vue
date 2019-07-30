@@ -5,6 +5,7 @@
     <div v-for="(item, index) in itemlist" :key="index" class="array-item">
       <!-- json 要传入引用地址，否则无法触发emit:update -->
       <SchemaField
+        kind="fields"
         :schema="item.schema"
         :json.sync="json[index]"
         :idSchema="item.idSchema"
@@ -25,7 +26,7 @@
 <script>
 import utils from '../../utils'
 import TitleField from './TitleField.vue'
-import SchemaField from './SchemaField.vue'
+import SchemaField from '../SchemaField.vue'
 import DescriptionField from './DescriptionField.vue'
 
 export default {
@@ -83,7 +84,6 @@ fieldset {
       }
       fieldset {
         flex: auto;
-        margin-bottom: 22px;
       }
   }
   &-del {
