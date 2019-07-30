@@ -1,7 +1,7 @@
 <template>
   <fieldset :class="{'noborder': !showTitle}">
     <TitleField :title="schema.title" v-if="showTitle"/>
-    <DescriptionField :description="schema.description" v-if="schema.description"/>
+    <DescriptionField :description="schema.description"/>
     <div v-for="(item, key, index) in schema.properties" :key="index">
       <SchemaField
         :kind="kind"
@@ -41,7 +41,7 @@ export default {
 <style lang="scss" scoped>
 fieldset {
   min-width: 0;
-  padding: 10px;
+  padding: 10px 10px 20px;
   margin: 0 0 20px 20px;
   border-radius: 8px;
   border: 1px dashed #2196fe;
@@ -50,7 +50,6 @@ fieldset {
 
 fieldset.noborder {
   border: none;
-  margin-left: 0;
   padding-left: 0;
   padding-top: 0;
 }

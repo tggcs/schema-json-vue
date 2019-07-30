@@ -1,5 +1,5 @@
 <template>
-  <legend>{{description}}</legend>
+  <legend v-if="description">{{description}}</legend>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
 
 <style lang="scss" scoped>
 legend {
-  margin-left: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 16px;
+  font-size: 14px;
 }
 </style>

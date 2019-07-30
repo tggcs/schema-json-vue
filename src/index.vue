@@ -68,6 +68,15 @@ export default {
   .el-alert--info {
     padding: 0 10px;
   }
+  .el-form-item {
+    position: relative;
+  }
+  .el-form-item__label {
+    top: 50%;
+    line-height: 1.5;
+    transform: translateY(-50%);
+    position: absolute;
+  }
 }
 .triangle {
   display: inline-block;

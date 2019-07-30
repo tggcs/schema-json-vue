@@ -83,7 +83,7 @@ export default {
 <style lang="scss" scoped>
 fieldset {
   min-width: 0;
-  padding: 10px;
+  padding: 10px 10px 20px;
   margin: 0 0 20px 20px;
   border-radius: 8px;
   border: 1px dashed #2196fe;
@@ -92,6 +92,8 @@ fieldset {
 
 fieldset.noborder {
   border: none;
+  padding-left: 0;
+  padding-top: 0;
   > .array-item {
     > .treeItem {
       padding-left: 0px;
