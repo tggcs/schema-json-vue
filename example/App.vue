@@ -92,7 +92,7 @@ export default {
   },
   data() {
     return {
-      activeName: "sample1",
+      activeName: "sample2",
       schema: {},
       schemaInput: "",
       json: {},
@@ -113,7 +113,39 @@ export default {
       }
     },
     sampleIdx(nval) {
-      this.json = {};
+      // this.json = [
+      //   {
+      //     "ageRange": "general",
+      //     "display": "general",
+      //     "nlgconfig": [
+      //       {
+      //         "key": "默认",
+      //         "value": "你好"
+      //       },
+      //       {
+      //         "key": "默认",
+      //         "value": "你好"
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     "ageRange": "adult",
+      //     "display": "screen",
+      //     "nlgconfig": []
+      //   },
+      //   {
+      //     "ageRange": "adult",
+      //     "display": "screen",
+      //     "nlgconfig": []
+      //   }
+      // ]
+      this.json = {
+        teacher: {
+          name: '李老师1'
+        },
+        subject: ['数学'],
+        grade: "高一121"
+      };
       this.schemaInput = JSON.stringify(this.samples[this.sampleIdx], null, 2);
     }
   },

@@ -43,20 +43,24 @@ export default {
   },
   computed: {
     itemlist() {
-      return this.json.map((item, index) => {
-        const itemSchema = this.schema.items
-        const itemIdPrefix = this.idSchema.$id + "_" + index;
-        const itemIdSchema = utils.toIdSchema(itemSchema, itemIdPrefix)
-        return {
-          schema: itemSchema,
-          idSchema: itemIdSchema,
-          // string 类型array 默认必填 避免空的脏数据
-          required: itemSchema.type == 'string'
-        }
-      })
+      if (Array.isArray(this.json)) {
+        return this.json.map((item, index) => {
+          const itemSchema = this.schema.items
+          const itemIdPrefix = this.idSchema.$id + "_" + index;
+          const itemIdSchema = utils.toIdSchema(itemSchema, itemIdPrefix)
+          return {
+            schema: itemSchema,
+            idSchema: itemIdSchema,
+            // string 类型array 默认必填 避免空的脏数据
+            required: itemSchema.type == 'string'
+          }
+        })
+      } else {
+        return []
+      }
     },
     level() {
-      return this.idSchema.$id.split("_").length - 1
+      return this.idSchema.$id.split("_").length
     }
   }
 }

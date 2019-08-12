@@ -20,19 +20,21 @@ export function toIdSchema(schema, id = 'root') {
 
 // merge defaults data from current schema & formData
 export function getDefaultFormState(schema, formData) {
+  let data = JSON.parse(JSON.stringify(formData))
   const defaults = computeDefaults(schema)
-  if (!(isObject(defaults) && isObject(formData)) && !(Array.isArray(defaults) && Array.isArray(formData))) {
+  if (!(isObject(defaults) && isObject(data)) && !(Array.isArray(defaults) && Array.isArray(data))) {
     warn('schema & json type is different => schema:', schema)
-    Array.isArray(defaults) && (formData = [])
-    isObject(defaults) && (formData = {})
+    Array.isArray(defaults) && (data = [])
+    isObject(defaults) && (data = {})
   }
+  console.log('getDefaultFormState', schema.type)
   switch (schema.type) {
     case "object":
-      return mergeObjects(defaults, formData)
+      return mergeObjects(defaults, data)
     case "array":
-      return formData
+      return data
     default:
-      return formData
+      return data
   }
 }
 

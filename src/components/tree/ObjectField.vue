@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     level() {
-      return this.idSchema.$id.split("_").length - 1
+      return this.idSchema.$id.split("_").length
     }
   }
 }

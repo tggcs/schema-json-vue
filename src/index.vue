@@ -19,7 +19,6 @@ export default {
     json: [String, Number, Boolean, Array, Object]
   },
   created() {
-    this.initData()
     utils.eventbus.init('AiVueSchema', this)
     utils.eventbus.$on('AiVueSchema', 'HandleNodeChose', (data) => {
       this.$emit('onChose', data)
@@ -31,14 +30,20 @@ export default {
     }
   },
   watch: {
-    json(nval) {
-      this.initData()
+    json: {
+      handler(nval) {
+        console.log(this.kind + ' watch json', nval)
+        this.initData()
+      },
+      deep: true
     },
     schema(nval) {
+      console.log(this.kind + ' watch schema', nval)
       this.initData()
     },
     jsonschema: {
       handler(nval) {
+        console.log(this.kind + ' watch jsonschema', nval)
         this.$emit('onJsonChange', nval)
         let configerror = []
         utils.checkJsonSchema(this.schema, nval, configerror)
@@ -57,7 +62,7 @@ export default {
     },
     initData() {
       this.jsonschema = utils.getDefaultFormState(this.schema, this.json)
-      this.$emit('onJsonChange', this.jsonschema)
+      console.log(this.kind + ' initData', this.json, this.jsonschema) 
     }
   }
 };

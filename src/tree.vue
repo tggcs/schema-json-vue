@@ -29,24 +29,20 @@ export default {
   created() {
     this.initData()
   },
-  watch: {
-    schema() {
-      this.initData()
-    }
-  },
   components: {
     jsonschema
   },
   data() {
     return {
-      jsonResult: '',
+      // _json: {},
       collspanSchema: {},
       collspanJson: {},
       collspanKeys: ['root']
-    };
+    }
   },
   methods: {
     initData(cb) {
+      // this._json = this.json
       this.$nextTick(() => {
         // 模拟第一次点击 初始数据
         utils.eventbus.$emit('AiVueSchema', 'HandleNodeChose', {
@@ -61,11 +57,16 @@ export default {
       })
     },
     handleChose({schema, json, idSchema}) {
+      // AiJsonSchema  通过监听json变化来刷新组件 有瑕疵，存在点击确不变json的情况  需要改进
+      let nochange = this.collspanJson == json
+      console.log('handleChose', nochange)
       this.collspanSchema = schema
       this.collspanJson = json
       this.collspanKeys = idSchema.$id.split("_")
+      nochange && this.$refs.AiJsonSchema.initData()
     },
     handleChange(val) {
+      console.log('handleChange sp1', val)
       this.$emit("onJsonChange", val)
 
       var path = ''
@@ -84,7 +85,9 @@ export default {
         } else {
           set(_json, path.replace(/root\.|root/, ''), val)
         }
+        console.log("handleChange sp2", _json, val)
         this.$emit('update:json', _json)
+        // this._json = _json
       }
     },
     validate(cb) {
