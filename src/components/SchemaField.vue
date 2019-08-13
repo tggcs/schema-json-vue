@@ -35,11 +35,11 @@ export default {
   props: ["kind", "schema", "json", "idSchema", "required"],
   created() {
     this.registry = utils.getDefaultRegistry()
-    utils.eventbus.$on('AiVueSchema', 'HandleTreeItemChose', (nodeid) => {
-      if (window.schema_data_current_chosed_id + nodeid.replace('root', '') == this.idSchema.$id) {
-        this.chose()
-      }
-    })
+    utils.eventbus.$on('AiVueSchema', 'HandleTreeItemChose', this.checkChose)
+  },
+  beforeDestroy() {
+    // 每次销毁都要移除注册的事件 否则会注册一堆 混论起来
+    utils.eventbus.$off('AiVueSchema', 'HandleTreeItemChose', this.checkChose)
   },
   data() {
     return {
@@ -62,6 +62,13 @@ export default {
     }
   },
   methods: {
+    checkChose(nodeid) {
+      if (this.kind == 'tree') {
+        if (window.schema_data_current_chosed_id + nodeid.replace('root', '') == this.idSchema.$id) {
+          this.chose()
+        }
+      }
+    },
     chose() {
       if (this.kind == 'tree') {
         utils.eventbus.$emit('AiVueSchema', 'HandleNodeChose', {
